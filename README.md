@@ -27,7 +27,7 @@
 * [Red Black Tree](03.DataStructure/RedBlackTree.md)
 
 ## Algorithm
-* [기본](04.Algorithm/Basic/)
+* [알고리즘 문제 기본](04.Algorithm/Basic/)
 * [시간복잡도, 공간복잡도](04.Algorithm/TimeSpaceComplexity.md)
 
 ## Spring
@@ -38,6 +38,3 @@
 * [토비 스프링 학습](06.Learning/TobySpring)
 * [GIT](06.Learning/GIT)
 
-## ETC
-
-* [GIT](07.ETC/Git.md)
