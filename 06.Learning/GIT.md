@@ -85,6 +85,9 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
 
   깃으로 관리하지 않는 파일 설정
 
+
+  .gitignore 파일 작성
+  
   ```CONSOLE
   # Logs
   Logs
@@ -272,13 +275,16 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
   
   원격 저장소를 지역 저장소에 복제하여 사용하는 방법이 있습니다.
  
-  * git clone "원격 저장소 주소" "새로운 저장소 이름"
+  * git clone "원격 저장소 주소" "새로운 지역 저장소 이름"
   
   ```CONSOL
   root $ git clone http://github.com/steadyin/chapter2-basic.git chapter2-basic-clone
   ```
-  
-# 실습 2
+ 
+  지역 저장소 이름을 지정하지 않고 git clone 원격 저장소 주소 만 입력하면 동일한 이름으로 지역 저장소가 생성됩니다.
+ 
+   
+# 실습 2 ( 협업자, 이슈, 라벨, 프로젝트 보드 )
  
 * 협업자 등록
  
@@ -292,16 +298,19 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
   
   http://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests
   
-* 라벨
+  * 라벨
   
-  라벨은 이슈의 성격을 구분짓는 도구 입니다. 
+    라벨은 이슈의 성격을 구분짓는 도구 입니다. 
   
-  ![image](https://user-images.githubusercontent.com/79847020/141807731-1c8b6c2d-25e8-4d52-bbd9-5d521552dfcd.png)
+    ![image](https://user-images.githubusercontent.com/79847020/141807731-1c8b6c2d-25e8-4d52-bbd9-5d521552dfcd.png)
 
-* 마일스톤
+  * 마일스톤
   
-  [Milestone]은 특정 프로젝트가 달성해야 하는 목표 시점과 작업을 관리할 수 있도록 돕는 도구 입니다.
-
+    [Milestone]은 특정 프로젝트가 달성해야 하는 목표 시점과 작업을 관리할 수 있도록 돕는 도구 입니다. 마일스톤은 종료일을 설정후 특정 이슈를 마일스톤에 포함시켜 진행 상황을 파악하는 도구입니다.
+  
+  * 깃허브에서는 이슈의 성격에 맞게 템플릿을 지정하는 기능도 제공하고 있습니다.
+  http://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests
+  
 * 프로젝트
   
   [Projects]는 깃허브에서 제공하는 프로젝트 보드 기능입니다. 해당 기능은 특정 프로젝트의 작업 관리를 돕는 도구입니다.
@@ -318,12 +327,12 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
   프로젝트 보드에서 제공하는 5가지 템플릿
   
   * None : 빈 템플릿을 생성합니다.
-  * Basic kanban : To do, In progress, Done
+  * Basic kanban : To do, In progress, Done 작업 상태열을 기본적으로 생성해줍니다.
   * Automated kanban : Basic kanban 보드와 동일하게 To do, In progress, Done 작업 상태열이 기본적으로 생성됩니다. 추가로 카드의 작업 상태가 프로젝트에 포함된 이슈의 상태에 따라 자동으로 변경됩니다.
   * Automated kanban with reviews : Automated kanban 보드와 동일하지만 작업 상태 변경 요소에 풀 리퀘스트의 상태가 추가로 반영됩니다.
   * Bug triage : 버그를 분류하기 위한 작업 상태열을 생성합니다.
   
-# 브랜치   
+# 실습 3 ( 브랜치 )
   
   브랜치(branch)란 프로젝트 기준 코드인 main 브랜치로부터 독립적인 작업 공간을 만들어주는 기능입니다. 여러 개발자가 서로 다른 버전의 코드를 만들 때 서로의 직업에 영향을 주고받지 않기 위해필요합니다. 
   
@@ -331,14 +340,19 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
   $ git status
   On branch main
   nothing to commit, working tree clean
-
+  ```  
+  On branch main 우리는 지금까지 main 브랜치에서 작업하고 커밋을 생성했습니다. 
+  
+  ```CONSOLE
   $ git log --pretty=oneline --graph
   * dec243fa9fd9d6b1df666e35759abeb5820da2e6 (HEAD -> main, origin/main) Add hotline to main page
   * 5a30b25c2887bacfe5177677a569153854817742 Change the title of main page
   * e47e1b2ae3df3d3711fb34ec6140e1f24506fdd0 Add initial files and .gitignore
-  ```  
+  ```
   
-  main 브랜치는 가장 최근에 생성된 커밋을 바라보고 있고 HEAD 포인터는 현재 작업하는 곳(브랜치)의 최종 커밋을 바라봅니다. 즉 현재 프로젝트의 HEAD 포인터는 main 브랜치에서 작업 중이며, main 브랜치는 가장 최근 커밋을 바라봅니다.
+![image](https://user-images.githubusercontent.com/79847020/144547077-727e8edc-7cf1-41fa-8bda-91a78a179266.png)
+
+  main 브랜치는 가장 최근에 생성된 커밋을 `dec243~~' 바라보고 있고 HEAD 포인터는 현재 작업하는 곳(브랜치)의 최종 커밋을 바라봅니다. 즉 현재 프로젝트의 HEAD 포인터는 main 브랜치에서 작업 중이며, main 브랜치는 가장 최근 커밋을 바라봅니다.
   
   브랜치를 생성하는 방법은 2가지 입니다.
   1. 깃허브 원격 저장소에서 생성 후, 지역 저장소로 가져오기
@@ -346,54 +360,59 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
   
   ## 원격 저장소에서 생성 후 지역 저장소로 가져오기
   
-  * 원격 저장소에서 branch를 생성합니다.
+  * 원격 저장소에서 branch를 생성합니다. from main 에서 알 수 있듯이 새로운 브랜치는 현재 main 브랜치의 최신 상태를 기준으로 생성됩니다.
   
-  ![image](https://user-images.githubusercontent.com/79847020/141822131-bd4f23f4-c127-4a9e-9ba7-da060f997bf8.png)
+  ![image](https://user-images.githubusercontent.com/79847020/144547457-87a8063f-2e36-422a-824f-27482da79891.png)
   
   * git remote update
   
-  지역 저장소에 원격 저장소의 상태르 갱신합니다.
-  
-  ```CONSOLE
-  $ git remote update
-  Fetching origin
-  From https://github.com/steadyin/mastering-git-github
-  * [new branch]      test/remote-branch -> origin/test/remote-branch
-  ```
+    지역 저장소에 원격 저장소의 상태르 갱신합니다.
+
+    ```CONSOLE
+    $ git remote update
+    Fetching origin
+    From https://github.com/steadyin/mastering-git-github
+    * [new branch]      test/remote-branch -> origin/test/remote-branch
+    ```
   
   * git branch -a
-  ```CONSOLE
-  $ git branch -a
-  * main
-  remotes/origin/main
-  remotes/origin/test/remote-branch
-  ```
   
-  * main은 지역 저장소의 main 브랜치를 의미하며 * 표시는 현재 작업 중인 브랜치를 의미합니다.
+    git branch 명령어를 통해 지역 저장소와 원격 저장소의 브랜치 정보를 확인합니다. -a 옵션은 지역 저장소와 원격 저장소의 브랜치 정보를 모두 보여줍니다. 
+
+    ```CONSOLE
+    $ git branch -a
+    * main
+    remotes/origin/main
+    remotes/origin/test/remote-branch
+    ```
   
-  'remotes/origin' 접두사가 붙은 브랜치는 원격 저장소, 특히 origin 식별자로 등록한 원격 저장소의 브랜치를 의미합니다. 원격 저장소에는 main과 test/remote-branch 브랜치가 존재한다는 사실을 확인할 수 있습니다.
+    '* main'은 지역 저장소의 main 브랜치를 의미하며 * 표시는 현재 작업 중인 브랜치를 의미합니다. 'remotes/origin' 접두사가 붙은 브랜치는 원격 저장소, 특히 origin 식별자로 등록한 원격 저장소의 브랜치를 의미합니다. 원격 저장소에는 main과 test/remote-branch 브랜치가 존재한다는 사실을 확인할 수 있습니다.
   
   * git checkout -t <브랜치명>
   
-  ```CONSOLE
-  $ git checkout -t origin/test/remote-branch
-  Switched to a new branch 'test/remote-branch'
-  Branch 'test/remote-branch' set up to track remote branch 'test/remote-branch' from 'origin'.
+    git checkout 명령어로 원격 저장소에서 생성한 브랜치를 지역 저장소의 작업 브랜치로 설정합니다.
   
-  $ git branch -a
-  main
-  * test/remote-branch
-  remotes/origin/main
-  remotes/origin/test/remote-branch
-  ```
+    ```CONSOLE
+    $ git checkout -t origin/test/remote-branch
+    Switched to a new branch 'test/remote-branch'
+    Branch 'test/remote-branch' set up to track remote branch 'test/remote-branch' from 'origin'.
+
+    $ git branch -a
+    main
+    * test/remote-branch
+    remotes/origin/main
+    remotes/origin/test/remote-branch
+    ```
   
-  origin 원격 저장소의 test/remote-branch 브랜치를 지역 저장소의 작업 브랜치로 설정했습니다. 이제 지역 저장소에도 test/remote-branch 브랜치가 생성되었으며 필요한 작업을 진행할 수 있습니다. "remotes" 접두사를 제외하고 명령어를 실행한 점을 주의해야한다.
+  origin 원격 저장소의 test/remote-branch 브랜치를 지역 저장소의 작업 브랜치로 설정했습니다. 이제 지역 저장소에도 test/remote-branch 브랜치가 생성되었으며 필요한 작업을 진행할 수 있습니다. "remotes" 접두사를 제외하고 명령어를 실행한 점을 주의해야한다. 
   
   ```CONSOLE
   $ git checkout -> 사용할 브랜치를 지정합니다.
   $ git checkout -b -> 브랜치를 생성하고 사용할 브랜치로 지정합니다.
   $ git checkout -t -> 원격 저장소에서 생성한 브랜치를 지역 저장소에서 사용할 브랜치로 지정합니다.
   ```
+
+  git branch 명령어의 몇 가지 옵션을 함께 살펴봅시다.
   
   ```CONSOLE
   $ git branch -a -> 지역 저장소와 원격 저장소의 브랜치 정보를 함께 보여줍니다.
@@ -403,22 +422,163 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
   $ git branch -v -> 지역 저장소와 브랜치 정보를 최신 커밋 내역과 함께 보여줍니다.
   ```
   
+  ## 지역 저장소에서 깃을 통해 브랜치 생성하기
+  
+  이제 지역 저장소에서 깃 명령어로 새로운 브랜치를 생성한 후 원격 저장소에 반영해보겠습니다.
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144548421-485ff252-bc06-4fb3-9771-bcb56ecde5da.png)
+  
+  현재 작업 브랜치는 test/remote-branch 입니다. main 브랜치를 기준으로 새로운 브랜치를 생성하려면 현재 작업 브랜치를 main 브랜치로 변경해야 합니다.
+  
+  * git checkout 명령어를 실행해 작업 브랜치를 main 브랜치로 변경합니다.
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144548589-865beb5a-88e7-4d21-a26d-eda35e0b7922.png)
+  ![image](https://user-images.githubusercontent.com/79847020/144548658-c22933fa-4212-43aa-a709-b534286160c3.png)
+  
+  * git branch 명령어를 실행하여 새로운 브랜치를 생성합니다.
+
+  ![image](https://user-images.githubusercontent.com/79847020/144548770-9d6b65a9-088b-49ed-97ac-2ac32fa0da00.png)
+  
+  test/local-branch라는 새로운 브랜치가 정상적으로 생성됐습니다. 현재 작업 브랜치는 main 브랜치입니다. 또한 'remotes'origin' 접두사가 붙은 'test/local-branch'는 없는 것으로 보아 원격 저장소에는 아직 반영되지 않았습니다.
+  
+  * git checkout 명령어를 실행해 새로운 브랜치를 작업 브랜치로 변경하고 원격 저장소에 반영해봅시다.
+
+  ![image](https://user-images.githubusercontent.com/79847020/144548931-4fbb0141-c080-4349-bdfd-3510c1022be4.png)
+
+  origin 식별자로 저장되 원격 저장소에 test/local-branch를 반영했습니다. 
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144549250-b8bed6a1-6fe6-4038-9b02-65841d8753c7.png)
+
+  ## 브랜치 삭제하기
+  
+  * 지역 저장소의 브랜치를 삭제합니다.
   
   ```CONSOLE
-  $ 
+  git branch -d {브랜치명}
+  ```
+  
+  * 원격 저장소의 브랜치를 삭제합니다.
+  
+  ```CONSOLE
+  git branch origin -d {브랜치명}
+  ```
+  
+  ## 브랜치 병합하기
+  
+  작업이 완료되면 기준 브랜치에 반영하는 작업이 필요하겠죠. 이 작업을 브랜치 병합이라고 합니다.
+  
+  ### 브랜치 병합이란 ?
+  
+  두 브랜치를 비교하여 파일의 변경 내용을 비교하고 합칩니다. 
+
+  ![image](https://user-images.githubusercontent.com/79847020/144549740-7cd00794-b524-47ed-803b-99dc624b61f6.png)
+  
+  해당 커밋내역 상태를표현하면 다음 그림과 같습니다.
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144550065-88de4a0a-06a8-4f29-ac6f-66dca8fb0767.png)
+
+  그림에서 보는 것처러 ㅁ지역 저장소의 test/local-branch 역시 main 브랜치와 동일한 커밋을 바라보고 있습니다. 그렇다면 test/local-branch를 작업 브랜치로 변경하여 새로운 커밋을 생성한 후 우리는 어떤 작업을 해야할까요?
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144553084-b33ff67b-a0cc-474e-91b7-464587026738.png)
+
+  test/local-branch에서 새로운 커밋을 생성했다고 가정하겠습니다.. 이 커밋은 기준 브랜치인 main 브랜치가 아직 알 수 없는 커밋이죠. 따라서 작업 브랜치(test/local-branch)에서 작업을 완료한 후 새로운 커밋을 main 브랜치에 반영하는 작업이 필요합니다. 반영 작업을 진행하면 머지 커밋(merge commit)이라는 새로운 커밋이 생성됩니다. 이것이 병합입니다. 기준 브랜치에 작업 브랜치의 새로운 커밋을 반영하는 방법은 크게 2가지이며 병합을 위한 추가적인 커밋 생성 여부를 기준으로 세웠습니다.
+  
+  ### 빨리감기 병합 : fast forward
+  
+  패스트 포워드 병합은 main 브랜치를 기준으로 작업 브랜치를 생성 후 작업을 온료하여 main 브랜치에 병합을 시도합니다. 이때 main 브랜치에 새로운 커밋이 없다면 빨리감기 병합으로 진행됩니다. 즉 기준 브랜치에 작업 브랜치의 새로운 커밋이 단순히 최신 커밋으로 더해지고 기준 브랜치가 바라보는 최신 커밋만 변경됩니다.
+
+  ![image](https://user-images.githubusercontent.com/79847020/144553570-ea87d169-5e13-4611-96e2-7704f5391f43.png)
+  
+  파일을 수정한 후 새로운 커밋을 생성합니다.
+
+  ![image](https://user-images.githubusercontent.com/79847020/144553923-572d9315-62cb-45a4-9391-2e82423f9b52.png)
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144553989-0eff34c9-093f-473f-a4c6-34634d897387.png)
+
+  현재 작업 브랜치 test/fast-forward만 가장 최근 생성한 커밋을 바라보고 있습니다. main 브랜치를 포함한 다른 브랜치들은 이전의 커밋을 바라보고 있습니다. test/fast-forward 브랜치의 작업 내용을 main 브랜치에 병합해보겠습니다.
+  
+  * main 브랜치를 작업 브랜치로 변경합니다.
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144554134-b18111ef-ea16-4a3c-b8f7-0dba830c50da.png)
+
+  test/fast-forward 에서 생성한 커밋은 보이지 않습니다. 새로운 브랜치의 ㅈ가업 내용을 병합하지 않았기 때문입니다.
+  
+  * test/fast-forward 브랜치의 작업 내용을 main 브랜치에 병합합니다.
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144554253-74d6ee34-969c-494b-be92-8b7fdc3f26ed.png)
+  
+  test/fast-forward를 main 브랜치를 기준으로 생성하고 test/fast-forward 브랜치의 작업 내용을 다시 main 브랜치에 병합할 때까지 main 브랜치에는 아무런 변경 내용이 없었기 때문에 빨리감기 병합 방식으로 이루어졌습니다.
+  
+  * 커밋 내역을 다시 살펴봅니다.
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144554463-f3309851-d909-4288-ac7a-569326255b5d.png)
+
+  기존에 main 브랜치에 존재하지 않았던 커밋이 추가됐고 main 브랜치와 test/fast-forward 브랜치가 같은 커밋을 바라보고 있습니다.
+  
+  ### 병합 커밋 생성 : merge commit
+  
+  두 번째 병합 방법은 커밋 생성입니다. fast forward 병합과 다르게 기준 브랜치에 변경이 존재하는 경우에 사용하는 방법입니다. 기준 브랜치와 새로운 작업 브랜치의 변경 내용을 하나로 합치는 작업이 필요하고 이를 병합이라고 합니다. 
+  
+  * 'test/local-branch'를 작업 브랜치로 설정하겠습니다.
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144558352-714e864f-edad-4d78-8645-307afc380a38.png)
+  
+  이전 커밋 내역을 살펴보면 test/local-branch는 현재 main 브랜치와 다른 커밋을 바라보고 있습니다. 즉 main 브랜치를 기준으로 test/local-branch 브랜치를 생성했을 때와 다르게 main 브랜치에 변경 내용이 존재합니다. 
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144558576-ec0b2b4f-22c4-4d08-b14f-60e847e944f2.png)
+
+  변경 내용을 만들기 위해 파일을 임의로 수정합니다. index.html을 열어보면 test/local-branch 블내치를 생성할 당시에는 title 내용을 수정한 커밋이 반영되지 않은 상태였기 때문에 title의 값에 여전히 변경이 없습니다. "운영팀 웹 어드민 시스템 v2"로 수정 합니다.
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144558745-a189568f-84c2-4fd3-9dd8-46d38c23aaca.png)
+
+  * 다시 main 브랜치를 작업 브랜치로 변경합니다.
+
+  ![image](https://user-images.githubusercontent.com/79847020/144558838-5453ad47-a164-46a8-9efe-8a55f9bb26f7.png)
+  
+  * get merge 명령어를 이용하여 "test/local-branch" 브랜치의 작업 내용을 main 브랜치에 병합합니다.
+
+  ![image](https://user-images.githubusercontent.com/79847020/144558925-24aba58b-1897-492a-82ff-8bb8a4d3b077.png)
+  
+  빨리감기 병합과는 다르게 git merge 명령어를 실행하면 터미널 결과와 같이 커밋 작성 에디터가 나타납니다. 바로 이 부분이 기준 브랜치인 main 브랜치와 작업 브랜치인 test/local-branch 양쪽의 변경 내용을 하나로 합치는 과정입니다. 커밋 작성 에디터를 저장하고 빠져나오면 Fast-forward 대신 Auto-mergin 이라는 결과를 확인할 수 있습니다.
+  
+  * 커밋 내역을 다시 살펴봅니다.
+  
+  ![image](https://user-images.githubusercontent.com/79847020/144559243-b19c46a8-8766-47ef-9056-ddc7fc17d532.png)
+  
+  test/fast-forward 브랜치에서 작업 후 main 브랜치에 병합된 커밋과 test/local-branch 브랜치에서 작업 후 main 브랜치에 병합된 커밋이 하나의 병합 커밋으로으로 묶여 생성됐습니다. 다시 한번 말씀 드리면 test/local-branch 브랜치를 main 브랜치 기준으로 생성할 당시에는 main 브랜치에 test/fast-forward 브랜치의 작업 커밋이 병합되지 상태였습니다. 따라서 test/local-branch 브랜치의 작업 커밋을 반영할 때 main 브랜치에 양쪽 변경 내용이 반영된 것입니다.
+
+  
+  
+
+  
+
+  
+  
+  
   
   
   
   
 
-ㅈ
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+
+  
+  
+  
+  
   
   
 
   
+
   
-
-
-
-
-
+  
