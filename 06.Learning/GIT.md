@@ -1,8 +1,32 @@
-<img src="https://user-images.githubusercontent.com/79847020/141739640-d66487e6-0858-46a4-8453-7bc2d3124bf2.png" height=300 width=800>
+![image](https://user-images.githubusercontent.com/79847020/146065149-49caaa33-c506-430f-879a-9be6cfaff0ff.png)
 
-# 실습 1
+# GIT / GITHUB
+
+리눅스 커널을 개발한 리누스 토르발스 개발
 
 GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비스
+
+## 기능 
+
+### GIT 
+
+1. 이력 기록 및 추적
+2. 원격 저장소 및 공유
+3. 변경 이력 병합
+
+### GITHUB
+
+1. 호스팅 서비스
+2. 공개 및 비공개 저장소
+3. 고급 기능 - 깃허브 액션, 깃허브 디플로이먼트 API
+
+## GITHUB 인증 방식
+
+깃허브에서 제공하는 개인용 액세스 토큰을 발급받아 해당 토큰을 패스워드로 사용해야 합니다.
+
+깃허브 [Settings] -> [Developer setting] -> [Personal access tokens] 
+
+# 실습 1
 
 # 1. 지역 저장소 생성
 
@@ -84,7 +108,8 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
 ## 2.4 .gitignore 파일 설정
 
   깃으로 관리하지 않는 파일 설정
-
+  
+  gitignore.io 도구를 활용 해서 생성 가능
 
   .gitignore 파일 작성
   
@@ -102,7 +127,7 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
 
 ## 3.1 깃 작업 트리(working tree)
 
-  ![image](https://user-images.githubusercontent.com/79847020/141788468-db5da410-40e7-49fe-817b-e5d2edf61441.png)
+  ![image](https://user-images.githubusercontent.com/79847020/146063770-38a4cc46-6e3d-4f38-b3ea-a5bd354ff5d6.png)
 
   깃은 관리하는 프로젝트의 작업을 효율적으로 처리하기 위해 작업 트리라는 개념을 사용합니다. 작업 트리란 깃이 추적(관리)하는 파일과 추적하지 않는 파일을 구분하고 추적하는 파일들의 상태를 구분 짓는 영역이라고 생각하면 됩니다.
 
@@ -117,12 +142,12 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
 
 ## 3.2 깃으로 파일 상태 확인  
 
-  ![image](https://user-images.githubusercontent.com/79847020/141788401-51ef093f-a0e7-4385-a204-920399ddba84.png)
+  ![image](https://user-images.githubusercontent.com/79847020/146064606-a856135a-a2e4-47eb-b3af-a37b32184d9b.png)
 
   깃에서 관리하는 파일은 Untracked와 Tracked 상태로 나뉩니다. 현재 작업 진행 중인 작업 디렉터리에서 새로 생성된 파일은 Untracked 상태가 됩니다. 주의할 점은 한 번 Tracked 상태가 되었다가 작업 디렉터리에서 수정된 파일은 Untracked 상태가 아니라는 점입니다.
   
-* 깃 상태 확인 - git status
-  
+### 3.2.1 깃 상태 확인 - git status
+
   현재 작업 진행 중인 작업 디렉터리에서 새로 생성한 파일이 이기 때문에 Untracked 상태로 존재합니다.
 
   ```CONSOLE
@@ -138,9 +163,9 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
   nothing added to commit but untracked files present (use "git add" to track)
   ```
 
-* 커밋에 포함될 파일 추가 - git add 
+### 3.2.2 커밋에 포함될 파일 추가 - git add 
   
-   git add 명령어를 이용하여 .gitignore 파일을 커밋 대상으로 등록했습니다. 해당 파일이 깃에서 관리하는 파일일 Tracked 상태가 되었고 스테이징 영역에서 커밋으로 기록될 준비가 되어있다는 의미입니다.
+  git add 명령어를 이용하여 .gitignore 파일을 커밋 대상으로 등록했습니다. 해당 파일이 깃에서 관리하는 파일일 Tracked 상태가 되었고 스테이징 영역에서 커밋으로 기록될 준비가 되어있다는 의미입니다.
 
   ```CONSOLE 
   $ git add .
@@ -155,23 +180,21 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
           new file:   .gitignore
   ```
 
-    * 참고 : warning : LF will be replaced by CRLF in .gitignore.
+  * 참고 : warning : LF will be replaced by CRLF in .gitignore.
 
-      해결방법 : git config core.autocrlf true
+    해결방법 : git config core.autocrlf true
 
-      운영체제 마다 개행문자를 인식하는 방법이 달라서 발생하는 경고입니다. 
+    운영체제 마다 개행문자를 인식하는 방법이 달라서 발생하는 경고입니다. 
 
-* Unmodified 및 modified 상태
+### 3.2.3 파일 상태
 
-  <img src="https://user-images.githubusercontent.com/79847020/141723873-c4dc7299-a75c-4958-9e65-3dd76b8e0b1b.jpg" height=300 width=800>
-  <img src="https://user-images.githubusercontent.com/79847020/141723871-2fe7e656-efdd-41bb-a52f-f5724dae6526.jpg" height=250 width=800>
-    
-  한 번 스테이징 영역에 추가된 파일은 수정 여부에 따라 Tracked, Unmodified, Modified 상태로 분류합니다.
+  ![image](https://user-images.githubusercontent.com/79847020/146068226-f6b3d89d-ae74-476d-b545-1d7017c36a65.png)  
   
-  * Stage/Tracked : git add로 스테이징 영역에 최초 등록된 직후 상태. Unmodified 상태와 동일하다고 생각하면 된다.
-  * Stage/Unmodified : commit으로 으로 지역 저장소에 기록할 수 있는 최종 상태. 
-  * Unstage/Modified : 스테이징 영역에 있지만 파일에 변화가 있는 상태. git add로 Unmodified 상태로 전환할 수 있다.
+  * 작업 디렉터리/Untracked : 아직 작업 디렉터리에 있는 상태. git add로 스테이징 영역에 등록할 수 있다.
+  * 스테이징 영역/Unmodified : commit으로 으로 지역 저장소에 기록할 수 있는 최종 상태. git add로 스테이징 영역에 최초 등록시에도 이 상태이다.
+  * 스테이징 영역/Modified : 스테이징 영역에 있지만 파일에 변화가 있는 상태. git add로 Unmodified 상태로 전환할 수 있다.
   
+ 
 * 커밋 생성하기 - git commit 
 
   #으로 시작하는 줄은 커밋 메시지에 반영되지 않습니다. on branch main라는 메시지는 현재 커밋으로 기록하는 브랜치가 main이라는 의미합니다. 
