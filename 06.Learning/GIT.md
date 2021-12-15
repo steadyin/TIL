@@ -302,7 +302,6 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
   ```
  
   지역 저장소 이름을 지정하지 않고 git clone 원격 저장소 주소 만 입력하면 동일한 이름으로 지역 저장소가 생성됩니다.
- 
    
 # 4. 실습 2 ( 협업자, 이슈, 라벨, 프로젝트 보드 )
  
@@ -318,13 +317,13 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
   
   http://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests
   
-### 4.2.1 라벨
+## 4.3 라벨
 
   라벨은 이슈의 성격을 구분짓는 도구 입니다. 
 
   ![image](https://user-images.githubusercontent.com/79847020/141807731-1c8b6c2d-25e8-4d52-bbd9-5d521552dfcd.png)
 
-### 4.2.2 마일스톤
+## 4.4 마일스톤
   
   [Milestone]은 특정 프로젝트가 달성해야 하는 목표 시점과 작업을 관리할 수 있도록 돕는 도구 입니다. 마일스톤은 종료일을 설정후 특정 이슈를 마일스톤에 포함시켜 진행 상황을 파악하는 도구입니다.
   
@@ -332,7 +331,7 @@ GIt - 분산형 버전 관리시스템 / Github - 프로젝트 호스팅 서비�
   
   http://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests
   
-### 4.2.3 프로젝트
+## 4.5 프로젝트
   
   [Projects]는 깃허브에서 제공하는 프로젝트 보드 기능입니다. 해당 기능은 특정 프로젝트의 작업 관리를 돕는 도구입니다.
   
