@@ -49,6 +49,7 @@ XSS(Cross-site Scripting)는 웹 상에서 가장 기초적인 취약점 공격 
 
 
 출처 : https://crashtest-security.com/cross-site-scripting-xss/
+https://crashtest-security.com/cross-site-request-forgery-csrf/
 
 # XXS(Cross-Site Scripting)
 
