@@ -73,21 +73,18 @@
 
 ## Java 1.8 vs Java 8 ?
 
-Java의 공식적인 이름은 Java SE 6이고, 1.6.0은 개발자들을 위한 버전명이라고 생각하면 된다. 
+Java 1.2 발표 시 제품의 변화가 크다는 이유로 Java 2로 다시 브랜딩되었습니다. Java 2 Standard Edition Software Development Kit의 약자는 Java2SDK로 불려야 되겠지만 Java 커뮤니티에서는 여전히 JDK 1.2로 부르게 됩니다. 
+
+Java 6 의 공식적인 이름은 Java SE 6 이고, 1.6은 개발자들을 위한 버전명이라고 생각하면 됩니다. 
 
 ## Backward Compatible 
 
-JDK는 소스코드를 class file로 전환(컴파일) 시켜주는 javac 와, class file을 실행하는 JRE로 구성되어 있습니다.  또한 JDK는 javac 와 jre를 포함하기에, 싸이즈가 큽니다.   그렇기때문에 개발머쉰에는 JDK를 설치하고,  개발된 프로그램을 실행하는 머쉰에는 javac가 필요없으므로, JRE만 설치해서 씁니다.
+JRE는 Java 프로그램을 구동할 수 있는 환경을 의미합니다. JDK는 JRE와 개발 도구 및 javac.exe 와 같은 컴파일 프로그램이 포함되어 있습니다. 때문에 자바프로그램 개발 목적인 경우 JDK를 설치하고, 단순히 자바 프로그램 실행 목적인 경우 JRE만 설치합니다. 
 
-JDK 8으로 생성된 class file은 Java 8으로 물론 실행되며, 상위버전 Java 9, 10, 11으로 호환됩니다.
+JDK 8로 컴파일 된 .class 파일은 Java 8에서 실행되며, 상위 버전인 Java 9, 10, 11에서 호환됩니다. 
 
-이걸 backward compatible 이라합니다.  하지만 하위 버전으로는 실행이 안됩니다.  예를 들면 JDK 8으로 생성(컴파일)된 class file은 하위버전 Java 7,6 등등으로 실행이 안됩니다.  또한 가끔가다, Java 8 에서 실행되는것이 상위 버전으로 안되는 것이 있습니다.  이걸 Deprecated 됬다고 합니다.  Deprecated리스트는  각버젼 Release Note에 나와있습니다.
-
-- 이미 컴파일 된 1.6 자바 클래스 파일은 1.8 에서도 돌아간다.
-- 하지만 1.8 에서 1.6 버전으로 컴파일은 불가능하다.
+이 개념을 Backward Compatible 이라고 부릅니다. 당연하겠찌만 하위 버전으로 실행은 되지 않습니다. 예를 들어 JDK 8 으로 컴파일 된 .class 파일은 하위 버전 Java 6, 7 등에서 실행 되지 않습니다. 가끔, 상위 버전에서 실행되지 않는 경우도 있는데 이를 Deprecated 됬다고 합니다. Deprecated 리스트는 각 버전 Release Note에 나와있습니다. 
 
 ## Oracle JDK, Open JDK
 
-Oracle 자바의 3자 라이브러리 특허 문제로 OpenJDK에서 미구현했거나, 구현 방식의 차이가 생겨서 호환이 일부 안될 수도 있습니다. OpenJDK 전환에서 걸림돌이 바로 업데이트인데, JDK 8까지는 OpenJDK와 Oracle JDK 업데이트가 둘이 따로 노는 수준이었으나, 이후 버전은 OpenJDK를 오라클이 따라가는 식으로 바뀌었습니다. 물론 그 중 특허 라이브러리 수정 사항에 따라 차이가 미묘하게 발생할 수도 있어 걱정을 덜기 위해 위해 호환성이 보장된다고 홍보하는 Zulu 등의 타사 JDK를 쓰기도 합니다.
-
-## 
+OracleJDK 의 3자 라이브러리 특허 문제로 OpenJDK 에서 미구현했거나, 구현 방식의 차이가 생겨서 호환이 일부 안될 수도 있습니다. OpenJDK 전환에서 걸림돌이 바로 업데이트인데, JDK 8까지는 OpenJDK와 Oracle JDK 업데이트가 둘이 따로 노는 수준이었으나, 이후 버전은 OpenJDK를 OracleJDK가 따라가는 방향으로 바뀌었습니다. 떄때로 특허 라이브러리 수정 사항에 따라 차이가 미묘하게 발생할 수도 있어 걱정을 덜기 위해 위해 호환성이 보장된다고 홍보하는 Zulu 등의 타사 JDK를 쓰기도 합니다.
