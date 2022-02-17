@@ -15,8 +15,48 @@
 
 ## 1. 타임리프 사용 선언
 
-```Thymeleaf
+```HTML
 <html xmlns:th="http://www.thymeleaf.org">
 ```
 
+## 2. 기타 표현식
 
+```
+* 간단한 표현 :
+  * 변수 표현식 : ${...}
+  * 선택 변수 표현식 : *{...}
+  * 메시지 표현식 : #{...}
+  * 링크 URL 표현식 : @{...}
+  * 조각 표현식 : ~{...}
+* 리터럴
+  * 텍스트 : 'one text', 'Another one!' ...
+  * 숫자 : 0, 34 ...
+  * 불린 : treu, false
+  * 널 : null
+  * 리터럴 토큰 : one, sometext, main ...
+* 문자 연산
+  * 문자 합치기 : +
+  * 리터럴 대체 : |The name is ${name}|
+* 산술 연산
+  * Binary operators : +, -, *, /, %
+  * Minus sign (unary operator) : -
+* 불린 연산
+  * Binary operators : and, or
+  * Boolean negation (unary operator) : !, not
+* 비교와 동등
+  * 비교 : >, <, >=, <= (gt, lt, ge, le)
+  * 동등연산 : ==, !=, (eq, ne)
+* 조건 연산
+  * IF-then : (if) ? (then)
+  * If-then-else: (if) ? (then) : (else)
+  * Default: (value) ?: (defaultvalue)
+* 특별한 토큰:
+  * No-Operation: _
+```
+
+### 텍스트 - text, utext
+
+타임리프는 기본적으로 HTML 
+
+
+ㄹㅇㅁ
