@@ -99,8 +99,15 @@ HTML 컨텐츠(COntent)에 데이털르 출력할 때는 다음과 같이 th:tex
 
 앞 예제에서 <b>Spring</b> 태그를 사용해서 진하게 나오도록 해보자.
 
-* 웹브라우저 : Hello &lt;b&gt;Spring!&lt;b&gt;
-* 소스보기 : Hello \&lt;b\&gt;Spring!\&lt;b\&gt;
+* 웹브라우저 : 
+```
+Hello <b>Spring!</b>
+```
+* 소스보기
+```HTML 
+Hello &lt;b&gt;Spring!&lt;b&gt;
+```
+
 
 개발자가 의도한 것은 &lt;b&gt;를 사용해서 글자를 강조하려는 목적이었다. 하지만 소스보기로 소스를 보면 '& lt ;'과 같은 형식으로 변경되어 있는 것을 확인할 수 있다.
 
@@ -378,9 +385,87 @@ thymeleaf-extras-java8time
 ```
 ![image](https://user-images.githubusercontent.com/79847020/154722060-c5c21a3a-0288-4aac-a0ed-16b482ec04ca.png)
 
+### 2.2.6 URL 링크
 
+타임리프에서 URL을 생성할 때는 @{...}를 사용한다.
 
+* 단순한 URL -> @{/hello} -> /hello
 
+* 쿼리 파라미터 -> @{/hello(param1=${param1}, param2=${param2})} -> /hello?param1=data1&param2=data2
 
+  ()에 있는 부분은 쿼리파라미터로 처리된다.
+ 
+* 경로 변수 -> @{/hello/{param1}/{param2}(param1=${param1}, param2=${param2})
 
+  URL 경로상에 변수가 있으면 () 부분은 경로 변수로 처리된다.
+  
+* 경로 변수 + 쿼리 파라미터 -> @{/hello/{param1}(param1=${param1}, param2=${param2})}
 
+  경로 변수와 쿼리 파라미터를 함께 사용할 수 있다.
+  
+* 상대경로 -> hello -> http://localhost:8080/현재파일경로/hello
+
+* 절대경로 -> /hello -> http://localhost:8080/hello
+
+참조 : https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#link-urls
+
+```JAVA
+    @RequestMapping(value = "/link")
+    public String link(Model model) {
+        model.addAttribute("param1", "data1");
+        model.addAttribute("param2", "data2");
+        return "basic/link";
+    }
+```
+
+```HTML
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>URL 링크</h1>
+<ul>
+    <li><a th:href="@{/hello}">basic url</a></li>
+    <li><a th:href="@{/hello(param1=${param1}, param2=${param2})}">hello query param</a></li>
+    <li><a th:href="@{/hello/{param1}/{param2}(param1=${param1}, param2=${param2})}">path variable</a></li>
+    <li><a th:href="@{/hello/{param1}(param1=${param1}, param2=${param2})}">path variable + query parameter</a></li>
+</ul>
+</body>
+</html>
+```
+![image](https://user-images.githubusercontent.com/79847020/154727552-cfe8d007-978a-432b-b821-b58425bc0eb3.png)
+
+## 2.3 리터럴(Literal)
+
+리터럴은 소스 코드상에 고정된 값을 말하는 용어이다. 
+
+* 문자 : 'hello'
+* 숫자 : 10
+* 불린 : ture, false
+* null : null
+
+타임리프에서 문자 리터럴은 항상 \'(작은따옴표)로 감싸야한다.
+```HTML
+<span th:text="'hello">
+```
+  
+그런데 문자를 항상 \'로 감싸는 것은 너무 귀찮은 일이다. `공백 없이` 쭉 이어진다면 하나의 의미있는 토큰으로 인지해서 다음과 같이 작은 따옴표를 생략할 수 있다.
+
+  룰 : A-Z, a-z, 0-9, [], ., -, _
+```HTML  
+<span th:Text="hello">
+```
+  
+* 오류
+  ```HTML
+  <span th:text="hello spring">
+  ```
+  하지만 다음과 같이 공백이 있다면 하나의 의미있는 토큰(?)으로 인식되지 않는다. 작은따옴표로 감싸면 정상 동작한다.
+  ```HTML
+  <span th:text="'hello spring'">
+  ```
+  
+ 
