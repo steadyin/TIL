@@ -440,26 +440,29 @@ thymeleaf-extras-java8time
 
 ## 2.3 리터럴(Literal)
 
-리터럴은 소스 코드상에 고정된 값을 말하는 용어이다. 
+* 리터럴 
+   
+   리터럴은 소스 코드상에 고정된 값을 말하는 용어이다. 
 
-* 문자 : 'hello'
-* 숫자 : 10
-* 불린 : ture, false
-* null : null
+   * 문자 : 'hello'
+   * 숫자 : 10
+   * 불린 : ture, false
+   * null : null
 
-타임리프에서 문자 리터럴은 항상 \'(작은따옴표)로 감싸야한다.
-```HTML
-<span th:text="'hello">
-```
-  
-그런데 문자를 항상 \'로 감싸는 것은 너무 귀찮은 일이다. `공백 없이` 쭉 이어진다면 하나의 의미있는 토큰으로 인지해서 다음과 같이 작은 따옴표를 생략할 수 있다.
+   타임리프에서 문자 리터럴은 항상 \'(작은따옴표)로 감싸야한다.
+   ```HTML
+   <span th:text="'hello">
+   ```
 
-  룰 : A-Z, a-z, 0-9, [], ., -, _
-```HTML  
-<span th:Text="hello">
-```
+   그런데 문자를 항상 \'로 감싸는 것은 너무 귀찮은 일이다. `공백 없이` 쭉 이어진다면 하나의 의미있는 토큰으로 인지해서 다음과 같이 작은 따옴표를 생략할 수 있다.
+
+     룰 : A-Z, a-z, 0-9, [], ., -, _
+   ```HTML  
+   <span th:Text="hello">
+   ```
   
 * 오류
+
   ```HTML
   <span th:text="hello spring">
   ```
@@ -467,5 +470,46 @@ thymeleaf-extras-java8time
   ```HTML
   <span th:text="'hello spring'">
   ```
-  
+
+* 리터럴 대체(literal substitution)
+
+  마지막의 리터럴 대체 문법을 사용하면 마치 템플릿을 사용하는 것처럼 편리하다.
+
+  ```HTML
+  <span th:text="|hello ${data}|">
+   ```
+
+```JAVA
+    @RequestMapping("/literal")
+    public String literal(Model model) {
+        model.addAttribute("data", "Spring!");
+        return "basic/literal";
+    }
+```
+```HTML
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Literal</title>
+</head>
+<body>
+<h1>리터럴</h1>
+<ul>
+    <!--주의! 다음 주석을 풀면 예외가 발생함-->
+    <!--    <li>"hello world!" = <span th:text="hello world!"></span></li>-->
+    <li>'hello' + ' world!' = <span th:text="'hello' + 'world!'"></span></li>
+    <li>'hello world!' = <span th:text="'hello world!'"></span></li>
+    <li>'hello ' + ${data} = <span th:text="'hello ' + ${data}"></span></li>
+    <li>리터럴 대체 |hello ${data}| = <span th:text="|hello ${data}|"></span></li>
+</ul>
+
+</body>
+</html>
+```
+![image](https://user-images.githubusercontent.com/79847020/154734548-2a10a4d8-a0d7-4c07-b013-725c668a3c7c.png)
+
+* 연산
+
+
+
  
