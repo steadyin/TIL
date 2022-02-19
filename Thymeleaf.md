@@ -1098,6 +1098,47 @@ public class TemplateController {
 </html>
 ```
 
+`template/fragment/footer :: copy` 의 의미는 template/fragment/footer.html 템플릿에 있는 th:fragment="copy"라는 부분을 템플릿 조각으로 가져와서 사용한다는 의미이다. 
+
+* 부분 포함 insert
+
+  th:replace를 사용하면 현재 태그(div)를 추가한다.
+  ```html
+  <h2>부분 포함 insert</h2>
+  <div th:insert="~{template/fragment/footer :: copy}"></div>
+  ```
+  렌더링
+  ```html
+  <h2>부분 포함 insert</h2>
+  <div>
+   <footer>
+    푸터 자리 입니다.
+   </footer>
+  </div>
+  ```
+
+* 부분 포함 replace
+
+  th:replace를 사용하면 현재 태그(div)를 대체한다.
+  ```html
+  <h2>부분 포함 replace</h2>
+  <div th:insert="~{template/fragment/footer :: copy}"></div>
+  ```
+  렌더링
+  ```html
+  <h2>부분 포함 insert</h2>
+  <div>
+   <footer>
+    푸터 자리 입니다.
+   </footer>
+  </div>
+  ```
+
+
+
+
+
+
 
 
   
