@@ -758,60 +758,164 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
   * switch
     \*은 만족하는 조건이 없을 때 사용하는 디폴트이다.
     
-    ```JAVA
-        @RequestMapping("/condition")
-    public String condition(Model model) {
-        addUsers(model);
-        return "basic/condition";
-    }
-    ```
-    ```HTML
-    <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Condition</title>
-    </head>
-    <body>
-    <h1>if, unless</h1>
-    <table border="1">
-        <tr>
-            <th>count</th>
-            <th>username</th>
-            <th>age</th>
-        </tr>
-        <tr th:each="user : ${users}">
-            <td th:text="${userStat.count}"></td>
-            <td th:text="${user.username}"></td>
-            <td>
-            <th th:text="${user.age}"></th>
-            <th th:text="'미성년자'" th:if="${user.age lt 20}"></th>
-            <th th:text="'미성년자'" th:unless="${user.age ge 20}"></th>
-            </td>
-        </tr>
-    </table>
+  ```JAVA
+  @RequestMapping("/condition")
+  public String condition(Model model) {
+      addUsers(model);
+      return "basic/condition";
+  }
+  ```
+  ```HTML
+  <!DOCTYPE html>
+  <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+      <meta charset="UTF-8"/>
+      <title>Condition</title>
+  </head>
+  <body>
+  <h1>if, unless</h1>
+  <table border="1">
+      <tr>
+          <th>count</th>
+          <th>username</th>
+          <th>age</th>
+      </tr>
+      <tr th:each="user : ${users}">
+          <td th:text="${userStat.count}"></td>
+          <td th:text="${user.username}"></td>
+          <td>
+          <th th:text="${user.age}"></th>
+          <th th:text="'미성년자'" th:if="${user.age lt 20}"></th>
+          <th th:text="'미성년자'" th:unless="${user.age ge 20}"></th>
+          </td>
+      </tr>
+  </table>
 
-    <h1>switch</h1>
-    <table border="1">
-        <tr>
-            <th>count</th>
-            <th>username</th>
-            <th>age</th>
-        </tr>
-        <tr th:each="user, userStat : ${users}">
-            <td th:text="${userStat.count}"></td>
-            <td th:text="${user.username}"></td>
-            <td th:switch="${user.age}">
-                <span th:case="10">10살</span>
-                <span th:case="20">20살</span>
-                <span th:case="*">기타</span>
-            </td>
-        </tr>
-    </table>
-    </body>
-    </html>
+  <h1>switch</h1>
+  <table border="1">
+      <tr>
+          <th>count</th>
+          <th>username</th>
+          <th>age</th>
+      </tr>
+      <tr th:each="user, userStat : ${users}">
+          <td th:text="${userStat.count}"></td>
+          <td th:text="${user.username}"></td>
+          <td th:switch="${user.age}">
+              <span th:case="10">10살</span>
+              <span th:case="20">20살</span>
+              <span th:case="*">기타</span>
+          </td>
+      </tr>
+  </table>
+  </body>
+  </html>
+  ```
+# 12. 주석
+
+  * 표준 HTML 주석
+    자바스크립트의 표준 HTML 주석은 타임리프가 렌더링 하지 않고 그대로 남겨둔다.
+    ```html
+    <!--
+    <span th:text="${data}"></span>
+    -->
     ```
-  # 12. 주석
+    
+  * 타임리프 파서 주석
+    타임리프 파서 주석은 타임리프의 진짜 주석이다. 렌더링에서 주석 부분을 제거한다.
+    ```html
+    <!--/* [[${data}]] */-->
+    <!--/*-->
+    <span th:text="${data}"></span>
+    <!--*/-->
+    ```
+    
+  * 타임리프 프로토타입 주석
+    HTML주석에 약간의 구문을 더한 형태이다. HTML파일을 직접 실행해서 열어보면 HTML 주석이기 때문에 렌더링되지 않는다. 하지만 서버에서 타일리프 렌더링 과정을 겪으면 주석이 해제되고 정상 렌더링된다. (거의 사용하지 않는다.)
+    
+    ```html
+    <!--/*/
+    <span th:text="${data}"></span>
+    /*/-->
+    ```
+    
+  ```JAVA
+    @RequestMapping("/comments")
+    public String comments(Model model) {
+        model.addAttribute("data", "Spring!");
+        return "/basic/comments.html";
+    }
+  ```
+  ```HTML
+  <!DOCTYPE html>
+  <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+      <meta charset="UTF-8">
+      <title>Comments</title>
+  </head>
+  <body>
+  <h1>예시</h1>
+  <span th:text="${data}">html data</span>
+
+  <h1>1. 표준 HTML 주석</h1>
+
+  <!--
+  <span th:text="${data}"></span>
+  -->
+
+  <h1>2. 타임리프 파서 주석</h1>
+
+  <!--/* [[${data}]] */-->
+  <!--/*-->
+  <span th:text="${data}"></span>
+  <!--*/-->
+
+  <h1>3. 타임리프 프로토타입 주석</h1>
+  <!--/*/
+  <span th:text="${data}"></span>
+  /*/-->
+
+  </body>
+  </html>
+  ```
+  
+# 13. 블록
+  
+<th:block>은 HTML 태그가 아닌 타임리프의 유일한 자체 태그이다. 타임리프 특성상 HTML 태그안에 속성으로 기능을 정의해서 사용하는데 위 예처럼 <div></div> 두 블록을 반복해서 출력하기 애매하다. <th:block>은 렌더링 시 제거된다.
+  
+```JAVA
+  @RequestMapping("/block")
+  public String block(Model model) {
+      addUsers(model);
+      return "/basic/block.html";
+  }
+```
+```HTML
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>block</title>
+</head>
+<body>
+<th:block th:each="user : ${users}">
+    <div>
+        사용자 이름1 <span th:text="${user.username}"></span>
+        사용자 나이1 <span th:text="${user.age}"></span>
+    </div>
+    <div>
+        요약 <span th:text="${user.username} + ' / ' + ${user.age}"></span>
+    </div>
+</th:block>
+
+</body>
+</html>
+```
+
+# 14. 자바스크립트 인라인 사용전
+
+  타임리프는 자바스크립트에서 타임리프를 편리하게 사용할 수 있는 자바스크립트 인라인 기능을 제공한다. 자바스크립트 인라인 기능은 음과 같이 적용하면 된다.
+  
   
     
    
