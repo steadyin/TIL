@@ -979,14 +979,6 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
     var user = [[${user}]];
 </script>
 
-<!-- 자바스크립트 인라인 catch-->
-<script th:inline="javascript">
-    [# th:each="user, stat : ${users}"]
-    var user[[${stat.count}]] = [[${user}]];
-    [/]
-</script>
-
-
 </body>
 
 </html>
@@ -1030,19 +1022,83 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
   인라인 사용 후는 객체를 JSON으로 변환해준다.
   
 * 자바스크립트 인라인 each
+  
+  자바스크립트 인라인은 each를 지원하는데 다음과 같이 사용한다.
+  
+  ```HTML
+  <!-- 자바스크립트 인라인 catch-->
+  <script th:inline="javascript">
+      [# th:each="user, stat : ${users}"]
+      var user[[${stat.count}]] = [[${user}]];
+      [/]
+  </script>
+  ```
+  ```
+  <script>
+  var user1 = {"username":"userA", "age":10};
+  var user2 = {"username":"userB", "age":20};
+  var user3 = {"username":"userC", "age":30};
+  ```
+  
+# 15.템플릿 조각
+
+웹 페이지를 개발할 때 공통 영역이 많이 있다. 예를 들면 상단 영역, 하단 영역, 좌측 카테고리 등등 여러 페이지에서 함께 사용하는 영역들이 있다. 이런 부분을 코드를 복사해서 사용한다면 변경시 여러 페이지를 다 수정해야 하므로 상당히 비효율적이다. 타임리프는 이런 문제를 해결하기 위해 템플릿 조각과 레이아웃 기능을 지원한다.
+
+먼저 실행해보자.
+
+```JAVA
+@Controller
+@RequestMapping("/template")
+public class TemplateController {
+    @GetMapping("/fragment")
+    public String template() {
+        return "template/fragment/fragmentMain";
+    }
+}
+```
+```HTML
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<footer th:fragment="copy">
+    푸터 자리 입니다.
+</footer>
+
+<footer th:fragmnet="copyParam (param1, param2)">
+    <p>파타미터 자리 입니다.</p>
+    <p th:text="${param1}"></p>
+    <p th:text="${param2}"></p>
+</footer>
+</body>
+</html>
+```
+
+`th:fragment가 있는 태그는 다른 곳에 포함되는 코드 조각으로 이해하면 된다.`
+
+```HTML
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>부분 포함</h1>
+<h2>부분 포함 insert</h2>
+<div th:insert="~{template/fragment/footer :: copy}"></div>
+
+<h2>부분 포함 replace</h2>
+<div th:replace="~{template/fragment/footer :: copy}"></div>
+
+<h2>부분 포함 단순 표현식</h2>
+<div th:replace="template/fragment/footer :: copy"></div>
+
+<h1>파라미터 사용</h1>
+
+</body>
+</html>
+```
+
+
 
   
   
-  
- 
-  
-  
-
-
-
-  
-  
-  
-    
-   
-   
