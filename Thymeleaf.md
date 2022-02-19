@@ -1133,13 +1133,107 @@ public class TemplateController {
    </footer>
   </div>
   ```
-
-
-
-
-
-
-
-
   
+* 파라미터 사용
+
+  다음과 같이 파라미터를 전달해서 동적으로 조각을 렌더링 할 수도 있다.
+  
+  ```html
+  <h1>파라미터 사용</h1>
+  <div th:replace="~{template/fragment/footer :: copyParam ('데이터1', '데이터2')}"></div>
+  ```
+  ```HTML
+  <h1>파라미터 사용</h1>
+  <footer>
+   <p>파라미터 자리 입니다</p>
+   <p>데이터1</p>
+   <p>데이터2</p>
+  </footer>
+  ```
+  ```HTML
+  <footer th:fragmnet="copyParam (param1, param2)">
+    <p>파타미터 자리 입니다.</p>
+    <p th:text="${param1}"></p>
+    <p th:text="${param2}"></p>
+  </footer>
+  ```
+# 16.템플릿 레이아웃1
+
+* 템플릿 레이아웃
+
+  이전에는 일부 코드 조각을 가져와서 사용했다면 코드 조각을 레이아웃에 넘겨서 사용하는 방법을 살펴보자.
+  예를 들어 \<head\>에 공통으로 사용하는 css, javascript 같은 정보들이 있는데 이런 정보들을 한 곳에 모아두고, 공통으로 사용하지만 각 페이지마다 필요한 정보를 더 추가해서 사용하고 싶다면 다음과 같이 사용하면 된다.
+  
+  * TemplateController
+    ```JAVA
+    @GetMapping("/layout")
+    public String layout() {
+        return "template/layout/layoutMain";
+    }
+    ```
+    
+  * base.html
+    ```HTML
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="common_header(title, links)">
+        <title th:replace="${title}">레이아웃 타이틀</title>
+
+        <!-- 공통 -->
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/awesomeapp.css}">
+        <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+        <script type="text/javascirpt" th:src="@{/sh/scripts/codebase.js}"></script>
+
+        <!-- 추가 -->
+        <th:block th:replace="${links}"/>
+    </head>
+    </html>
+    ```
+  * layoutMain.html
+    ```HTML
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="template/layout/base :: common_header(~{::title}, ~{::link})">
+        <title>메인 타이틀</title>
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/themes/smoothness/jquery-ui.css}">
+    </head>
+    <body>
+    메인 컨텐츠
+    </body>
+    </html>
+    ```
+  * 결과
+    ```HTML
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>메인 페이지 타이틀</title>
+    </head>
+    <body>
+    <h1>레이아웃 H1</h1>
+    <section>
+        <p>메인 페이지 컨텐츠</p>
+        <div>메인 페이지 포함 내용</div>
+    </section>
+    <footer>
+        레이아웃 푸터
+    </footer>
+    </body>
+    </html>
+    ```
+    
+    common_header(~{::title}, ~{::link}) 이 부분이 핵심이다. 현재페이지의 title, link 태그를 전달한다.
+    
+    결과를 보면 메인 타이틀이 전달한 부분으로 교체되었다. 공통 부분은 그대로 유지되고 추가 부분에 전달한 <link>들이 포함된 것을 확인할 수 있다.
+    
+    이 방식은 사실 앞서 배운 코드 조각을 조금 더 적극적으로 사용하는 방식이다. 쉽게 이야기해서 레이아웃 개념을 두고 그 레이아웃에 필요한 코드 조각을 전달해서 완성하는 것으로 이해하면 된다.
+    
+# 템플릿 레이아웃2
+
+  사이트에 100페이지가 있는데 공통된 레이아웃이 있꼬 레이아웃 컨텐츠 부분만 수정되어야 한다. 
+    
+    
+
+
   
