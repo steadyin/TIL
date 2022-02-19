@@ -650,65 +650,169 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
 
   </body>
   </html>
+```
+
+# 10. 반복
+
+타임리프에서 반복은 th:each를 사용한다. 추가로 반복에서 사용할 수 있는 여러 상태값을 지원한다. 
+
+* 반복 기능
+
+  ```html
+  <tr th:each="user : ${users}">
+  ```
+  
+  반복시 오른쪽 컬렉션 ${users}의 값을 하나씩 꺼내서 왼쪽 변수(user)에 담아서 태그를 반복 실행합니다.
+  
+  th:each는 List 뿐만 아니라 배열 java.util.Iterable, java.util.Enumeration을 구현한 모든 객체를 반복에 사용할 수 있습니다. Map도사용할 수 있는데 이 경우 변수에 담기는 값은 Map.Entity입니다.
+  
+* 반복 상태 유지
+  
+  ```html
+  <tr th:each="user, userStat : ${users}">
+  ```
+  
+  반복의 두번째 파라미터를 사용해서 반복의 상태를 확인할 수 있습니다. 두번째 파라미터는 생략 가능한데 생략하면 지정한 변수명(user) + STat가 됩니다. 
+  여기서 user + Stat = userSTat 이므로 생략해도 동일하게 동작합니다.
+  
+* 반복 상태 유지 기능
+  * index : 0부터 시작하는 값
+  * count : 1부터 시작하는 값
+  * size : 전체 사이즈
+  * even. odd : 홀수 짝수 여부(boolean)
+  * first, last : 처음, 마지막 여부(boolean)
+  * current : 현재 객체
+
+* 조건부 평가
+
+  타임리프의 조건식
+  if, unless(if의 반대)
+  
+  ```JAVA
+     @RequestMapping("/each")
+     public String each(Model model) {
+         addUsers(model);
+         return "basic/each";
+     }
   ```
 
-  # 10. 반복
+  ```HTML
+   <!DOCTYPE html>
+   <html xmlns:th="http://www.thymeleaf.org">
+   <head>
+       <meta charset="UTF-8"/>
+       <title>Each</title>
+   </head>
+   <body>
+   <h1>기본 테이블</h1>
+   <table border="1">
+       <tr>
+           <th>username</th>
+           <th>age</th>
+       </tr>
+       <tr th:each="user : ${users}">
+           <td th:text="${user.username}">username</td>
+           <td th:Text="${user.age}">age</td>
+       </tr>
+   </table>
 
-    타임리프에서 반복은 th:each를 사용한다. 추가로 반복에서 사용할 수 있는 여러 상태값을 지원한다.
+   <h1>반복 상태 유지</h1>
 
-    ```JAVA
-        @RequestMapping("/each")
-        public String each(Model model) {
-            addUsers(model);
-            return "basic/each";
-        }
+   <table border="1">
+       <tr>
+           <th>count</th>
+           <th>username</th>
+           <th>age</th>
+           <th>etc</th>
+       </tr>
+       <tr th:each="user, userStat : ${users}">
+           <td th:text="${userStat.index}"></td>
+           <td th:text="${user.username}"></td>
+           <td th:Text="${user.age}"></td>
+           <td>
+               index = <span th:text="${userStat.index}"></span>
+               count = <span th:text="${userStat.count}"></span>
+               size = <span th:text="${userStat.size}"></span>
+               even? = <span th:text="${userStat.even}"></span>
+               odd? = <span th:text="${userStat.odd}"></span>
+               first? = <span th:text="${userStat.first}"></span>
+               last? = <span th:text="${userStat.last}"></span>
+               current = <span th:text="${userStat.current}"></span>
+           </td>
+       </tr>
+   </table>
+   </body>
+   </html>
+   ```
+   
+ # 11. 조건부 평가
+ 
+  타임리프의 조건식 if, unless(if의 반대)
+   
+  * if, unless
+    타임리프는 해당 조건이 맞지 않으면 태그 자체를 렌더링 하지 않는다. 만약 다음 조건이 false인 경우 \<span>, \</span> 부분 자체가 렌더링 되지 않고 사라진다.
+    ```html
+    <span th:text="'미성년자'" th:if="${user.age lt 20|"></span>
     ```
-
+    
+  * switch
+    \*은 만족하는 조건이 없을 때 사용하는 디폴트이다.
+    
+    ```JAVA
+        @RequestMapping("/condition")
+    public String condition(Model model) {
+        addUsers(model);
+        return "basic/condition";
+    }
+    ```
     ```HTML
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8"/>
-        <title>Each</title>
+        <title>Condition</title>
     </head>
     <body>
-    <h1>기본 테이블</h1>
-    <table border="1">
-        <tr>
-            <th>username</th>
-            <th>age</th>
-        </tr>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.username}">username</td>
-            <td th:Text="${user.age}">age</td>
-        </tr>
-    </table>
-
-    <h1>반복 상태 유지</h1>
-
+    <h1>if, unless</h1>
     <table border="1">
         <tr>
             <th>count</th>
             <th>username</th>
             <th>age</th>
-            <th>etc</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${userStat.count}"></td>
+            <td th:text="${user.username}"></td>
+            <td>
+            <th th:text="${user.age}"></th>
+            <th th:text="'미성년자'" th:if="${user.age lt 20}"></th>
+            <th th:text="'미성년자'" th:unless="${user.age ge 20}"></th>
+            </td>
+        </tr>
+    </table>
+
+    <h1>switch</h1>
+    <table border="1">
+        <tr>
+            <th>count</th>
+            <th>username</th>
+            <th>age</th>
         </tr>
         <tr th:each="user, userStat : ${users}">
-            <td th:text="${userStat.index}"></td>
+            <td th:text="${userStat.count}"></td>
             <td th:text="${user.username}"></td>
-            <td th:Text="${user.age}"></td>
-            <td>
-                index = <span th:text="${userStat.index}"></span>
-                count = <span th:text="${userStat.count}"></span>
-                size = <span th:text="${userStat.size}"></span>
-                even? = <span th:text="${userStat.even}"></span>
-                odd? = <span th:text="${userStat.odd}"></span>
-                first? = <span th:text="${userStat.first}"></span>
-                last? = <span th:text="${userStat.last}"></span>
-                current = <span th:text="${userStat.current}"></span>
+            <td th:switch="${user.age}">
+                <span th:case="10">10살</span>
+                <span th:case="20">20살</span>
+                <span th:case="*">기타</span>
             </td>
         </tr>
     </table>
     </body>
     </html>
     ```
+  # 12. 주석
+  
+    
+   
+   
