@@ -1157,7 +1157,7 @@ public class TemplateController {
     <p th:text="${param2}"></p>
   </footer>
   ```
-# 16.템플릿 레이아웃1
+# 16.템플릿 레이아웃1 - 템플릿 레이아웃
 
 * 템플릿 레이아웃
 
@@ -1229,11 +1229,55 @@ public class TemplateController {
     
     이 방식은 사실 앞서 배운 코드 조각을 조금 더 적극적으로 사용하는 방식이다. 쉽게 이야기해서 레이아웃 개념을 두고 그 레이아웃에 필요한 코드 조각을 전달해서 완성하는 것으로 이해하면 된다.
     
-# 템플릿 레이아웃2
+# 템플릿 레이아웃2 - 템플릿 
 
-  사이트에 100페이지가 있는데 공통된 레이아웃이 있꼬 레이아웃 컨텐츠 부분만 수정되어야 한다. 
-    
-    
-
-
+사이트에 100페이지가 있는데 공통된 레이아웃이 있꼬 레이아웃 컨텐츠 부분만 수정되어야 한다. 앞서 이야기한 개념을 \<head\> 레벨에서만 적용하는 것이 아니라 \<html\> 전체에 적용할 수도 있다. 
   
+```JAVA
+@GetMapping("/layoutExtend")
+public String layoutExtend() {
+  return "template/layoutExtend/layoutExtendMain";
+}
+```
+layoutFile.html
+```HTML
+<!DOCTYPE html>
+<html th:fragment="layout (title, content)" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:replace="${title}">레이아웃 타이틀</title>
+</head>
+<body>
+<h1>레이아웃 H1</h1>
+<div th:replace="${content}">
+    <p>레이아웃 컨텐츠</p>
+</div>
+<footer>
+    레이아웃 푸터
+</footer>
+</body>
+</html>
+```
+layoutExtendMain.html
+```HTML
+<!DOCTYPE html>
+<html th:replace="~{template/layoutExtend/layoutFile :: layout(~{::title}, ~{::section})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지 타이틀</title>
+</head>
+<body>
+<section>
+    <p>메인 페이지 컨텐츠</p>
+    <div>메인 페이지 포함 내용</div>
+</section>
+</body>
+</html>
+```
+![image](https://user-images.githubusercontent.com/79847020/154831078-5cb1de1d-76a8-4f3f-a15e-41fb1c04480c.png)
+
+layoutFile.html을 보면 기본 레이아웃을 가지고 있는데 \<html\>에 th:fragment= 속성이 정의되어 있다. 이 레이아웃 파일을 기본으로 하고 여기에 필요한 내용을 전달해서 부분부분 벼경하는 것으로 이해하면 된다.
+
+layoutExtendMain.html은 현재 페이지인데 <html>자체를 th:replace를 사용해서 변경하는 것을 확인할 수 있다. 결국 layoutFile 필요한 내용을 전달하면서 <html>자체를 layoutFile.html로 변경한다.  
+ 
+layoutExtendMain에는 layoutExtendMain페이지 만의 고유 코드를 작성하고 그 코드를 layoutFile에 코드를 파라미터로 넘긴다. layouFile에 내용을 끼워넣은 후 layoutExtendMain html코드를 layoutFile에서 완성된 코드로 replace를 한다.
