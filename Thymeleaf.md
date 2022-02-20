@@ -238,6 +238,7 @@
 </body>
 </html>
 ```
+![image](https://user-images.githubusercontent.com/79847020/154831445-ec48bc95-a5b2-43d9-bdf2-7a1151d329c6.png)
 
 ## 3.2 지역 변수 선언
 
@@ -249,6 +250,7 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
     <p>처음 사람의 이름은 <span th:text="${first.username}"></span></p>
 </div>
 ```
+![image](https://user-images.githubusercontent.com/79847020/154831452-6923be26-903f-41b5-91a6-b92c10788003.png)
 
 # 4. 기본 객체들
 
@@ -593,6 +595,7 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
 </body>
 </html>
 ```
+![image](https://user-images.githubusercontent.com/79847020/154831496-34f53eb7-0660-4a0d-a40f-26bb1e97196a.png)
 
 # 9. 속성 값 설정
 
@@ -651,6 +654,7 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
   </body>
   </html>
 ```
+![image](https://user-images.githubusercontent.com/79847020/154831508-5af81a10-a56c-489f-a664-60fba3069d35.png)
 
 # 10. 반복
 
@@ -673,6 +677,7 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
   ```
   
   반복의 두번째 파라미터를 사용해서 반복의 상태를 확인할 수 있습니다. 두번째 파라미터는 생략 가능한데 생략하면 지정한 변수명(user) + STat가 됩니다. 
+
   여기서 user + Stat = userSTat 이므로 생략해도 동일하게 동작합니다.
   
 * 반복 상태 유지 기능
@@ -745,76 +750,81 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
    </html>
    ```
    
- # 11. 조건부 평가
+# 11. 조건부 평가
  
   타임리프의 조건식 if, unless(if의 반대)
    
   * if, unless
-    타임리프는 해당 조건이 맞지 않으면 태그 자체를 렌더링 하지 않는다. 만약 다음 조건이 false인 경우 \<span>, \</span> 부분 자체가 렌더링 되지 않고 사라진다.
+    
+	  타임리프는 해당 조건이 맞지 않으면 태그 자체를 렌더링 하지 않는다. 만약 다음 조건이 false인 경우 \<span>, \</span> 부분 자체가 렌더링 되지 않고 사라진다.
     ```html
     <span th:text="'미성년자'" th:if="${user.age lt 20|"></span>
     ```
     
   * switch
-    \*은 만족하는 조건이 없을 때 사용하는 디폴트이다.
+  
+	  \*은 만족하는 조건이 없을 때 사용하는 디폴트이다.
     
-  ```JAVA
-  @RequestMapping("/condition")
-  public String condition(Model model) {
-      addUsers(model);
-      return "basic/condition";
-  }
-  ```
-  ```HTML
-  <!DOCTYPE html>
-  <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-      <meta charset="UTF-8"/>
-      <title>Condition</title>
-  </head>
-  <body>
-  <h1>if, unless</h1>
-  <table border="1">
-      <tr>
-          <th>count</th>
-          <th>username</th>
-          <th>age</th>
-      </tr>
-      <tr th:each="user : ${users}">
-          <td th:text="${userStat.count}"></td>
-          <td th:text="${user.username}"></td>
-          <td>
-          <th th:text="${user.age}"></th>
-          <th th:text="'미성년자'" th:if="${user.age lt 20}"></th>
-          <th th:text="'미성년자'" th:unless="${user.age ge 20}"></th>
-          </td>
-      </tr>
-  </table>
+```JAVA
+@RequestMapping("/condition")
+public String condition(Model model) {
+		addUsers(model);
+		return "basic/condition";
+}
+```
+```HTML
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+		<meta charset="UTF-8"/>
+		<title>Condition</title>
+</head>
+<body>
+<h1>if, unless</h1>
+<table border="1">
+		<tr>
+				<th>count</th>
+				<th>username</th>
+				<th>age</th>
+		</tr>
+		<tr th:each="user : ${users}">
+				<td th:text="${userStat.count}"></td>
+				<td th:text="${user.username}"></td>
+				<td>
+				<th th:text="${user.age}"></th>
+				<th th:text="'미성년자'" th:if="${user.age lt 20}"></th>
+				<th th:text="'미성년자'" th:unless="${user.age ge 20}"></th>
+				</td>
+		</tr>
+</table>
 
-  <h1>switch</h1>
-  <table border="1">
-      <tr>
-          <th>count</th>
-          <th>username</th>
-          <th>age</th>
-      </tr>
-      <tr th:each="user, userStat : ${users}">
-          <td th:text="${userStat.count}"></td>
-          <td th:text="${user.username}"></td>
-          <td th:switch="${user.age}">
-              <span th:case="10">10살</span>
-              <span th:case="20">20살</span>
-              <span th:case="*">기타</span>
-          </td>
-      </tr>
-  </table>
-  </body>
-  </html>
-  ```
+<h1>switch</h1>
+<table border="1">
+		<tr>
+				<th>count</th>
+				<th>username</th>
+				<th>age</th>
+		</tr>
+		<tr th:each="user, userStat : ${users}">
+				<td th:text="${userStat.count}"></td>
+				<td th:text="${user.username}"></td>
+				<td th:switch="${user.age}">
+						<span th:case="10">10살</span>
+						<span th:case="20">20살</span>
+						<span th:case="*">기타</span>
+				</td>
+		</tr>
+</table>
+</body>
+</html>
+```
+![image](https://user-images.githubusercontent.com/79847020/154831537-b982fa6f-3cce-43b1-a57e-9a9ac3f4d0d7.png)
+	
 # 12. 주석
 
   * 표준 HTML 주석
-    자바스크립트의 표준 HTML 주석은 타임리프가 렌더링 하지 않고 그대로 남겨둔다.
+  
+	  자바스크립트의 표준 HTML 주석은 타임리프가 렌더링 하지 않고 그대로 남겨둔다.
     ```html
     <!--
     <span th:text="${data}"></span>
@@ -822,7 +832,8 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
     ```
     
   * 타임리프 파서 주석
-    타임리프 파서 주석은 타임리프의 진짜 주석이다. 렌더링에서 주석 부분을 제거한다.
+    
+		타임리프 파서 주석은 타임리프의 진짜 주석이다. 렌더링에서 주석 부분을 제거한다.
     ```html
     <!--/* [[${data}]] */-->
     <!--/*-->
@@ -831,53 +842,55 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
     ```
     
   * 타임리프 프로토타입 주석
-    HTML주석에 약간의 구문을 더한 형태이다. HTML파일을 직접 실행해서 열어보면 HTML 주석이기 때문에 렌더링되지 않는다. 하지만 서버에서 타일리프 렌더링 과정을 겪으면 주석이 해제되고 정상 렌더링된다. (거의 사용하지 않는다.)
+    
+		HTML주석에 약간의 구문을 더한 형태이다. HTML파일을 직접 실행해서 열어보면 HTML 주석이기 때문에 렌더링되지 않는다. 하지만 서버에서 타일리프 렌더링 과정을 겪으면 주석이 해제되고 정상 렌더링된다. (거의 사용하지 않는다.)
     
     ```html
     <!--/*/
     <span th:text="${data}"></span>
     /*/-->
     ```
-    
-  ```JAVA
-    @RequestMapping("/comments")
-    public String comments(Model model) {
-        model.addAttribute("data", "Spring!");
-        return "/basic/comments.html";
-    }
-  ```
-  ```HTML
-  <!DOCTYPE html>
-  <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-      <meta charset="UTF-8">
-      <title>Comments</title>
-  </head>
-  <body>
-  <h1>예시</h1>
-  <span th:text="${data}">html data</span>
 
-  <h1>1. 표준 HTML 주석</h1>
+  * 예제 소스		
+		```JAVA
+			@RequestMapping("/comments")
+			public String comments(Model model) {
+					model.addAttribute("data", "Spring!");
+					return "/basic/comments.html";
+			}
+		```
+		```HTML
+		<!DOCTYPE html>
+		<html xmlns:th="http://www.thymeleaf.org">
+		<head>
+				<meta charset="UTF-8">
+				<title>Comments</title>
+		</head>
+		<body>
+		<h1>예시</h1>
+		<span th:text="${data}">html data</span>
 
-  <!--
-  <span th:text="${data}"></span>
-  -->
+		<h1>1. 표준 HTML 주석</h1>
 
-  <h1>2. 타임리프 파서 주석</h1>
+		<!--
+		<span th:text="${data}"></span>
+		-->
 
-  <!--/* [[${data}]] */-->
-  <!--/*-->
-  <span th:text="${data}"></span>
-  <!--*/-->
+		<h1>2. 타임리프 파서 주석</h1>
 
-  <h1>3. 타임리프 프로토타입 주석</h1>
-  <!--/*/
-  <span th:text="${data}"></span>
-  /*/-->
+		<!--/* [[${data}]] */-->
+		<!--/*-->
+		<span th:text="${data}"></span>
+		<!--*/-->
 
-  </body>
-  </html>
-  ```
+		<h1>3. 타임리프 프로토타입 주석</h1>
+		<!--/*/
+		<span th:text="${data}"></span>
+		/*/-->
+
+		</body>
+		</html>
+		```
   
 # 13. 블록
   
@@ -911,17 +924,19 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
 </body>
 </html>
 ```
+![image](https://user-images.githubusercontent.com/79847020/154831562-62b3670b-4285-433a-82d2-67149bf59e12.png)
 
 # 14. 자바스크립트 인라인
 
 타임리프는 자바스크립트에서 타임리프를 편리하게 사용할 수 있는 자바스크립트 인라인 기능을 제공한다. 
+
 ```html
 <script th:inline="javascript">
  ```
  
 먼저 예제를 살펴보자.
  
- ```JAVA
+```JAVA
     @RequestMapping("/javascript")
     public String javascript(Model model) {
         model.addAttribute("user", new User("UserA", 10));
@@ -983,6 +998,7 @@ th:with를 사용하면 지역 변수를 선언해서 사용할 수 있다. 지�
 
 </html>
 ```
+![image](https://user-images.githubusercontent.com/79847020/154831591-7968fc2e-3e24-46d5-8420-65e0011710f3.png)
  
 자바스크립트 인라인을 사용하지 않은 경우 어떤 문제들이 있는지 살펴보자.
  
@@ -1092,11 +1108,10 @@ public class TemplateController {
 <h2>부분 포함 단순 표현식</h2>
 <div th:replace="template/fragment/footer :: copy"></div>
 
-<h1>파라미터 사용</h1>
-
 </body>
 </html>
 ```
+![image](https://user-images.githubusercontent.com/79847020/154831609-cc23b6ed-b552-4253-81cb-e77a4708ee6d.png)
 
 `template/fragment/footer :: copy` 의 의미는 template/fragment/footer.html 템플릿에 있는 th:fragment="copy"라는 부분을 템플릿 조각으로 가져와서 사용한다는 의미이다. 
 
@@ -1138,11 +1153,23 @@ public class TemplateController {
 
   다음과 같이 파라미터를 전달해서 동적으로 조각을 렌더링 할 수도 있다.
   
+  Fragment 호출
   ```html
   <h1>파라미터 사용</h1>
-  <div th:replace="~{template/fragment/footer :: copyParam ('데이터1', '데이터2')}"></div>
+  <div th:replace="~{template/fragment/footer :: copyParam(param1 = '데이터1', param2 = '데이터2')}"></div>
   ```
+  
+  Fragment 정의
   ```HTML
+  <footer th:fragmnet="copyParam">
+    <p>파타미터 자리 입니다.</p>
+    <p th:text="${param1}"></p>
+    <p th:text="${param2}"></p>
+  </footer>
+  ```
+  
+  렌더링 후 HTML 페이지
+	```HTML
   <h1>파라미터 사용</h1>
   <footer>
    <p>파라미터 자리 입니다</p>
@@ -1150,13 +1177,9 @@ public class TemplateController {
    <p>데이터2</p>
   </footer>
   ```
-  ```HTML
-  <footer th:fragmnet="copyParam (param1, param2)">
-    <p>파타미터 자리 입니다.</p>
-    <p th:text="${param1}"></p>
-    <p th:text="${param2}"></p>
-  </footer>
-  ```
+  
+  ![image](https://user-images.githubusercontent.com/79847020/154833541-c0881bfa-85d2-40e8-a1f6-514c519c9622.png)
+
 # 16.템플릿 레이아웃1 - 템플릿 레이아웃
 
 * 템플릿 레이아웃
@@ -1224,6 +1247,8 @@ public class TemplateController {
     ```
     
     common_header(~{::title}, ~{::link}) 이 부분이 핵심이다. 현재페이지의 title, link 태그를 전달한다.
+    
+    ![image](https://user-images.githubusercontent.com/79847020/154833550-be092d07-aa4f-4c93-b2f2-d9797b2b0e37.png)
     
     결과를 보면 메인 타이틀이 전달한 부분으로 교체되었다. 공통 부분은 그대로 유지되고 추가 부분에 전달한 <link>들이 포함된 것을 확인할 수 있다.
     
