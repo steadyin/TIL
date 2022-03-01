@@ -131,11 +131,11 @@
   * 회원은 일반과 VIP 두 가지 등급이 있다.
   * 회원 데이터는 자체 DB를 구축할 수 있고 외부 시스템과 연동할 수 있다.(미확정)
 
-![img_18.png](img_18.png)
+![img_18](https://user-images.githubusercontent.com/79847020/156158131-a9d7c262-5656-4cb6-a4d8-7f7af89b1f7c.png)
 
-![img_19.png](img_19.png)
+![img_19](https://user-images.githubusercontent.com/79847020/156158137-dafe5799-b409-4cf4-ab6b-266a12cb145a.png)
 
-![img_21.png](img_21.png)
+![img_21](https://user-images.githubusercontent.com/79847020/156158156-3d95e892-d493-475a-8e2a-6be48910675e.png)
 
 * 회원 등급 Grade
 
@@ -302,13 +302,13 @@ public class MemberServiceTest {
   * 할인 정책은 모든 VIP는 1000원을 할인해주는 고정 금액 할인을 적용해달라 (나중에 변경 가능하다.)
   * 할인 정책은 변경 가능성이 높다. 회사의 기본 할인 정책을 아직 정하지 못했고 오픈 직전까지 고민을 미루고 싶다. 회창의 경우 할인을 적용하지 않을 수도 있다. (미확정)
 
-![img_22.png](img_22.png)
+![img_22](https://user-images.githubusercontent.com/79847020/156158168-722588f0-5871-4e3b-b84d-b9d6d3054f21.png)
 
-![img_24.png](img_24.png)
+![img_24](https://user-images.githubusercontent.com/79847020/156158182-a491db0f-f4a5-44a5-9509-7320a0d652ee.png)
 
-![img_25.png](img_25.png)
+![img_25](https://user-images.githubusercontent.com/79847020/156158192-627aa5a4-a2fa-44b5-a007-0f3249459eae.png)
 
-![img_26.png](img_26.png)
+![img_26](https://user-images.githubusercontent.com/79847020/156158198-e42d9054-d84a-4a4a-b52d-104866a1c31b.png)
 
 * 할인 정책 인터페이스 DiscountPolicy
 
@@ -490,7 +490,7 @@ class OrderServiceImplTest {
 애자일 소프트웨어 개발 선언 "계획에 따르기 보다는 변화에 대응하기를"
 애자일 소프트웨어 개발 선언 : http://agilemanifesto.org/iso/ko/manifesto.html
 
-![img_27.png](img_27.png)
+![img_27](https://user-images.githubusercontent.com/79847020/156158214-a8993c1a-5a24-4236-98f9-2e4f6cf23d40.png)
 
 * 할인 정책 추가 RateDiscountPolicy
 
@@ -560,15 +560,15 @@ OrderServiceImpl(클라이언트)에서 역할(DiscountPolicy)에 의존할 뿐�
 
 결국 구체적인 것에 의존하므로 DIP를 위반이고 기능을 확장하려면 클라이언트 코드를 수정해야 하므로 OCP를 위반하고 있다.
 
-![img_28.png](img_28.png)
+![img_28](https://user-images.githubusercontent.com/79847020/156158229-39b8dedc-ac3e-42b2-babc-f14ad84e5020.png)
 
-![img_29.png](img_29.png)
+![img_29](https://user-images.githubusercontent.com/79847020/156158235-946a2338-7b7a-4534-9412-080c4bd0e854.png)
 
-![img_30.png](img_30.png)
+![img_30](https://user-images.githubusercontent.com/79847020/156158240-88f12d9c-aa5e-4678-94b1-58458439eee1.png)
 
 어떻게 문제를 해결할 수 있을까? -> 인터페이스에만 의존하도록 설계를 변경하자.
 
-![img_31.png](img_31.png)
+![img_31](https://user-images.githubusercontent.com/79847020/156158250-bb88c10e-a315-4e67-b403-d623719024a6.png)
 
 ```java
 public class OrderServiceImpl implements OrderService {
@@ -638,13 +638,13 @@ public class MemberServiceImpl implements MemberService {
 
 어떤 구현 객체를 주입할지는 외부(AppConfig)의 관심사다.
 
-![img_33.png](img_33.png)
+![img_33](https://user-images.githubusercontent.com/79847020/156158272-0971d98d-2e0d-4ac3-93f9-9b873c67314f.png)
 
 DIP 완성 : 추상적인 것에 의존하고 구체적인 것에 의존하지 마라.
 
 관심사의 분리 : 객체를 생성하고 연결하는 역할과 실행하는 역할이 분리되었다.
 
-![img_35.png](img_35.png)
+![img_35](https://user-images.githubusercontent.com/79847020/156158283-874e6327-ef98-4e55-8a8c-50f6b5a5d42b.png)
 
 appConfig 객체는 memoryMemberRepository 객체를 생성하고 참조값을 memberServiceImple 생성자에게 전달한다.
 
@@ -764,7 +764,7 @@ class OrderServiceTest {
 
 현재 AppConfig를 보면 중복이 있고, 역할에 따른 구현이 잘 안보인다.
 
-![img_36.png](img_36.png)
+![img_36](https://user-images.githubusercontent.com/79847020/156158293-cd46b455-c552-4c75-b3f6-278caccf0b2b.png)
 
 * 변경 전 AppConfig
 
@@ -817,9 +817,9 @@ AppConfig를 보면 역할과 구현 클래스가 한 눈에 들어온다.
 
 AppConfig의 등장으로 애플리케이션이 크게 사용 영역, 생성하고 구성하는 영역으로 분리되었다.
 
-![img_37.png](img_37.png)
+![img_37](https://user-images.githubusercontent.com/79847020/156158311-0cdb7c48-e9ff-4261-afcc-eb116098663f.png)
 
-![img_38.png](img_38.png)
+![img_38](https://user-images.githubusercontent.com/79847020/156158318-bc090722-e0bb-459c-8bbf-3f8dcf66156c.png)
 
 FixDiscountPolicy를 RateDiscountPolicy로 변경해도 AppCOnfig에서만 변경하면 된다.
 
@@ -878,7 +878,7 @@ public class AppConfig {
 * 의존관계 주입(DI : Dependency Injection)
   * OrderServiceImpl은 DiscountPolicy 인터페이스에 의존한다. 실제 어떤 구현 객체가 사용될지는 모른다.
   * 의존관계는 정적인 클래스 의존 관계와 실행 시점에 결정되는 동적인 객체(인스턴스) 의존 관계 둘을 분리해서 생각해야 한다.
-    ![img_39.png](img_39.png)
+  ![img_39](https://user-images.githubusercontent.com/79847020/156158341-323728cd-4c2e-41d4-9aa3-e772815dffdc.png)
   * OrderServiceImpl은 MemberRepository, DiscountPolicy에 의존한다는 것을 알 수 있다. 그러나 이런 클래스 의존관계 만으로 어떤 객체가 OrderServiceImpl에 주입
     될지 알 수 없다.
   * 애플리케이션 실행 시점(런타임)에 외부에서 실제 구현 객체를 생성하고 클라이언트에 전달해서 클라이언트와 서버의 실제 의존관계가 연결 되는 것을 의존관계 주입이라 한다.
@@ -981,15 +981,15 @@ ApplicationContext를 스프링 컨테이너라고 한다. ApplicationContext는
 
 * 스프링 컨테이너의 생성 과정
   * 스프링 컨테이너 생성
-    ![img_40.png](img_40.png)
+    ![img_40](https://user-images.githubusercontent.com/79847020/156158369-32a6b514-67c6-468e-b09f-267c8d6e207a.png)
   * 스프링 빈 등록
-    ![img_41.png](img_41.png)
+    ![img_41](https://user-images.githubusercontent.com/79847020/156158397-860bc6db-f295-431e-8682-c1bd66cd0ef5.png)
 
   빈 이름으로 기본적으로 메서드명이 사용되며, @Bean(name="") 다음과 같이 직접 지정할 수도 있다. 빈 이름은 고유해야 한다. 같은 이름의 빈이 있다면 덮어쓰거나 오류가 발생한다.
   * 스프링 빈 의존관계 설정 준비
-    ![img_42.png](img_42.png)
+    ![img_42](https://user-images.githubusercontent.com/79847020/156158410-23a3a54c-819b-40be-a921-249dad378ce4.png)
   * 스프링 빈 의존관계 설정 완료
-    ![img_43.png](img_43.png)
+    ![img_43](https://user-images.githubusercontent.com/79847020/156158418-87d565bc-b705-4f80-b767-809d126c7577.png)
 
 ### 컨테이너에 등록된 모든 빈 조회
 
@@ -1128,7 +1128,7 @@ class ApplicationContextSameBeanFindTest {
 
 부모 타입으로 조회하면 자식 타입도 함께 조회한다. Object.class 타입으로 빈을 조회하면 모든 스프링 빈이 조회된다.
 
-![img_44.png](img_44.png)
+![img_44](https://user-images.githubusercontent.com/79847020/156158430-4c254a76-31d9-4b94-8f79-9b796b92682d.png)
 
 ```java
 public class ApplicationContextExtendsFindTest {
@@ -1193,8 +1193,7 @@ public class ApplicationContextExtendsFindTest {
 
 ### BeanFactory와 ApplicationContext
 
-![img_45.png](img_45.png)
-
+![img_45](https://user-images.githubusercontent.com/79847020/156158446-8050c9b4-7a6c-41f2-bdc9-a3c10f0a07cb.png)
 * BeanFactory
   * 스프링 컨테이너의 최상위 인터페이스이다.
   * 스프링 빈을 관리하고 조회하는 역할을 담당한다.
@@ -1204,14 +1203,14 @@ public class ApplicationContextExtendsFindTest {
   * ApplicationContext을 BeanFactory 기능 이외에도 부가기능을 제공한다.
   * BeanFactory, MessageSource, EnvironmentCapable, ApplicationContextEventPublisher, ResourceLoader
 
-![img_46.png](img_46.png)
+![img_46](https://user-images.githubusercontent.com/79847020/156158459-9dda0127-401d-4700-ab92-87c0145c42f9.png)
 
 ApplicationContext는 BeanFactory의 기능을 상속받는다. ApplicationContext는 BeanFactory의 기능 이외에 부가기능을 추가로 더 제공한다. BeanFactory를 직접
 사용할 일은 없다. ApplicationContext를 사용한다. BeanFacotry나 ApplicationContext를 스프링 컨테이너라고한다.
 
 ### 다양한 설정 형식 지원 - 자바 코드, XML
 
-![img_47.png](img_47.png)
+![img_47](https://user-images.githubusercontent.com/79847020/156158471-b67302a8-a7d1-47c3-b4a2-924008b0d208.png)
 
 AnnotationConfigApplicationContext - 애노테이션 기반 자바 설정 파일 사용 GenericXmlApplicationContext - XML 파일 설정 파일 사용
 
@@ -1231,7 +1230,7 @@ BeanDefinition을 빈 설정 메타 정보라고 한다. @Bean, <Bean> 당 하�
 BeanDefiniton을 직접 생성해서 사용할 수도 있지만 실무에서 직접 사용할 일은 없다. 스프링이 다양한 형태의 설정 정보를 BeanDefinition으로 추ㅏㅇ화해서 사용하는 것 정도만 이해하면 된다. 스프링
 코드나 오픈 소스의 코드를 볼 때 BeanDefinition 을 사용하는 것을 볼 수 있다.
 
-![img_48.png](img_48.png)
+![img_48](https://user-images.githubusercontent.com/79847020/156158482-5289df49-5041-4496-9274-b4637d660767.png)
 
 ```java
 public class BeanDefinitionTest {
@@ -1261,7 +1260,7 @@ public class BeanDefinitionTest {
 * 웹 애플리케이션은 보통 여러 고객이 동시에 요청을 한다.
 
 스프링이 없는 순수한 DI 컨테이너
-![img_49.png](img_49.png)
+![img_49](https://user-images.githubusercontent.com/79847020/156158500-6683f175-bea6-4138-816d-8e2bfb06dde4.png)
 
 ```java
 public class SingletonTest {
@@ -1378,7 +1377,7 @@ public class SingletonService {
 
 싱글톤 컨테이너 적용 후
 
-![img_50.png](img_50.png)
+![img_50](https://user-images.githubusercontent.com/79847020/156158515-29e9eaa8-e632-4eb9-8223-6bb45cca36b2.png)
 
 참고 : 스프링의 기본 빈 등록 방식은 싱글톤이지만 싱글톤 방식만 지원하는 것은 아니다. 요청할 때마다 새로운 객체를 생성해서 반환하는 기능도 제공한다.
 
@@ -1628,7 +1627,7 @@ class hello.core.AppConfig
 
 이것이 의미하는 것은 스프링 CGLIB라는 바이트코드 조작 라이브러리를 사용해서 AppConfig 클래스를 상속받은 임의의 다른 클래스를 만들고 그 다른 클래스를 스프링 빈으로 등록한 것이다.
 
-![img_51.png](img_51.png)
+![img_51](https://user-images.githubusercontent.com/79847020/156158527-1d85ecc7-87eb-4b35-b189-a5cf1898c5a3.png)
 
 CGLIB 라이브러리를 사용해서 해당 클래스를 싱글톤으로 생성한다.
 
@@ -1768,16 +1767,16 @@ AutoAppConfigTest를 하면 MemberService 빈을 잘 가져올 수 있는 것을
 
 다음과 같이 컴포넌트 스캔해서 빈으로 등록되는 과정이 로그에 찍힌다.
 
-![img_52.png](img_52.png)
+![img_52](https://user-images.githubusercontent.com/79847020/156158532-0888518a-16dd-4fba-8f2c-b6d4aaf26464.png)
 
 컴포넌트 스캔과 자동 의존관계 주입이 어떻게 동작하는지 살펴보자.
 
-![img_53.png](img_53.png)
+![img_53](https://user-images.githubusercontent.com/79847020/156158542-4ad3cd06-589f-4287-9157-170c2ab1c276.png)
 
 @ComponentScan은 @Component가 붙은 모든 클래스를 스프링 빈으로 등록한다. 이 때 스프링 빈의 기본 이름은 클래스명을 사용하되 맨 앞글자만 소문자를 사용한다. @Compoennt("
 beanName") 빈 이름을 직접 지정할수도 있다.
 
-![img_54.png](img_54.png)
+![img_54](https://user-images.githubusercontent.com/79847020/156158558-3af0b163-59cb-4ed7-b042-1e8995525187.png)
 
 생성자에 @Autowired를 지정하면 스프링 컨테이너 해당 빈을 찾아서 주입한다. 기본 전략은 타입이 같은 빈을 찾아서 주입한다. getBean(MemberRepository.class)와 같다고 생각하면 된다.
 
@@ -2994,13 +2993,13 @@ PrototypeBean HelloBean() {
 
 싱글톤 빈 요청
 
-![img_55.png](img_55.png)
+![img_55](https://user-images.githubusercontent.com/79847020/156158578-8b253360-86a9-4526-a4a3-b080d256c7f2.png)
 
 프로토 타입 빈 요청
 
-![img_58.png](img_58.png)
+![img_58](https://user-images.githubusercontent.com/79847020/156158611-7f502710-ba30-4e58-9263-c48fd988eb4e.png)
 
-![img_57.png](img_57.png)
+![img_57](https://user-images.githubusercontent.com/79847020/156158620-ef9b3e70-d22e-4532-b36b-a69ae421a330.png)
 
 핵심은 스프링 컨테이너는 프로토타입 빈을 생성하고 의존관계 주입, 초기화까지만 처리한다는 것이다. 클라이언트에 빈을 반환하고 이후 스프링 컨테이너는 생성된 프로토타입 빈을 관리하지 않는다. 프로토타입 빈을 관리할
 책임을 프로토타입 빈을 받은 클라이언트에 있다. 그래서 @PreDestory 같은 종료 메서드가 호출되지 않는다.
@@ -3120,14 +3119,14 @@ prototypeBean2 = hello.core.scope.PrototypeTest$PrototypeBean@3cdf2c61
 
 * 프로토타입 빈 직접 요청
 
-* ![img_59.png](img_59.png)
+![img_59](https://user-images.githubusercontent.com/79847020/156158628-2c18c4e2-1511-4c4c-95ff-a46450bbd4b8.png)
 
 1. 클라이언트 A는 스프링 컨테이너에 프로토타입 빈을 요청한다.
 2. 스프링 컨테이너는 프로토타입 빈을 새로 생성해서 반환(x01)한다. 해당 빈의 count 필드 값은 0이다.
 3. 클라이언트는 조회한 프로토타입 빈에 addCount()를 호출하면서 count필드를 +1한다.
 4. 결과적으로 프로토타입 빈(x01)의 count는 1이 된다.
 
-* ![img_60.png](img_60.png)
+![img_60](https://user-images.githubusercontent.com/79847020/156158637-eb64df74-bc7c-40f6-8914-16325b230b64.png)
 
 1. 클라이언트B는 스프링 컨테이너에 프로토타입 빈을 요청한다.
 2. 스프링 컨테이너는 프로토타입 빈을 새로 생성해서 반환(x02)한다. 해당 빈의 count필드는 0이다.
@@ -3182,7 +3181,7 @@ public class SingletonWithPrototypeTest1 {
 
 싱글톤과 프로토타입 빈 사용1
 
-![img_61.png](img_61.png)
+![img_61](https://user-images.githubusercontent.com/79847020/156158655-7718f32a-c0b2-41ea-8373-19c1196ba8e6.png)
 
 1. clientBean은 싱글톤이므로 보통 스프링 컨테이너 생성 시점에 함께 생성되고 의존관계 주입도 발생한다.
 2. clientBean은 의존관계 자동 주입을 사용한다. 주입 시점에 스프링 컨테이너에 프로토타입 빈을 요청한다.
@@ -3191,7 +3190,7 @@ public class SingletonWithPrototypeTest1 {
 
 싱글톤과 프로토타입 빈 사용 2
 
-![img_62.png](img_62.png)
+![img_62](https://user-images.githubusercontent.com/79847020/156158662-2255918e-1179-45d3-9989-be7c44ace06f.png)
 
 1. 클라이언트A는 clientBean을 스프링 컨테이너에 요청해서 받는다. 싱글톤이므로 항상 같은 clientBean이 반환된다.
 2. 클라이언트A는 clientBean.logic()을 호출한다.
@@ -3446,7 +3445,7 @@ static class ClientBean {
 
 사실 세션이나, 서블릿 컨텍스트, 웹 소켓 같은 용어를 잘 모르는 분들도 있을 것이다. 여기서는 request 스코프를 예제로 설명하겠다.
 
-![img_63.png](img_63.png)
+![img_63](https://user-images.githubusercontent.com/79847020/156158674-0e753189-8550-4f19-aceb-dd3614b972e6.png)
 
 ### request 스코프 예제 만들기
 
@@ -3726,7 +3725,7 @@ myLogger = class.hello.core.common.MyLogger$$EnhanceBySpringCGLIB$$b68b726d
 5. ac.getBean("myLogger", MyLogger.class)로 조회해도 프록시 객체가 조회되는 것을 확인할 수 있다.
 6. 의존관계 주입도 역시 프록시 객체가 주입된다.
 
-![img_64.png](img_64.png)
+![img_64](https://user-images.githubusercontent.com/79847020/156158684-ee825cf3-34c9-4a7f-92f1-fbaace646ee7.png)
 
 1. 가짜 프록시 객체를 요청이 오면 그때 내부에서 진짜 빈을 요청하는 위임 로직이 들어있다.
 2. 가짜 프록시 객체는 내부에 진짜 myLogger를 찾는 방법을 알고 있다.
