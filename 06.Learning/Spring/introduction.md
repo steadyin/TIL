@@ -64,15 +64,15 @@
     * Preferences -> Build,Execution,Deployment -> Build Tools -> Gradle
     * Build and run using : Gradle -> Intellij IDEA
     * Runt tests using : Gradle -> Intellij IDEA
-      ![img.png](img.png)
+      ![img](https://user-images.githubusercontent.com/79847020/156157437-46f7f46b-de75-4d10-a4f2-5a77db96a06a.png)
 
   * 단축키 설정법
     * Preferences -> Keymap <br>
-      ![img_1.png](img_1.png)
+      ![img_1](https://user-images.githubusercontent.com/79847020/156157458-2078caa2-8f5d-4e66-b1c7-eb6ca75e628c.png)
 
   * JDK 설정
     * Project Structure(Ctrl + Alt + Shift + S) <br>
-      ![img_2.png](img_2.png)
+      ![img_2](https://user-images.githubusercontent.com/79847020/156157481-4104f658-19e3-4e1e-8510-51947b2803e8.png)
 
   * Html Recompile
     * spring-boot-devtools 라이브러리르 추가하면 html 파일을 컴파일만 해주면 서버 재시작 없이 View 파일 변경이 가능하다.
@@ -93,7 +93,7 @@
 
 http://localhost:8080/hello-static.html
 
-![img_4.png](img_4.png)
+![img_4](https://user-images.githubusercontent.com/79847020/156157503-768f07ea-aa6b-48b8-afbe-dcc8ee248b27.png)
 
 요청 시 hello-static 관련 컨트롤러가 존재하지 않다는 것을 확인 후 static에서 자원을 조회한다.
 
@@ -103,7 +103,7 @@ http://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/html/spring-boot-
 
 http://localhost:8080/hello-mvc?name=spring
 
-![img_5.png](img_5.png)
+![img_5](https://user-images.githubusercontent.com/79847020/156157519-3afa26eb-68ef-4abb-a1bc-ffe8d176e867.png)
 
 HelloController
 ```JAVA
@@ -123,7 +123,7 @@ public class HelloController {
 
 http://localhost:8080/hello-string?name=spring
 
-![img_6.png](img_6.png)
+![img_6](https://user-images.githubusercontent.com/79847020/156157528-8e7e41f0-a621-46a8-8c30-5dca32f16583.png)
 
 * @ResponseBody
   * HTTP Body에 문자열로 직접 반환 
@@ -180,7 +180,7 @@ public class HelloController {
 
 일반적인 웹 애플리케이션 계층 구조
 
-![img_7.png](img_7.png)
+![img_7](https://user-images.githubusercontent.com/79847020/156157541-0bd771d1-9007-454d-bbd5-9c14c54ecf2f.png)
 
 Controller : 웹 MVC 컨트롤러 
 
@@ -192,7 +192,7 @@ Domain : 비즈니스 도메인 객체
 
 클래스 의존관계
 
-![img_10.png](img_10.png)
+![img_10](https://user-images.githubusercontent.com/79847020/156157559-e554807f-935b-4cb0-a716-b8e8cc3500e9.png)
 
 아직 데이터가 저장소가 선정되지 않아 우선 인터페이스로 구현 클래스를 변경할 수 있도록 설계  
 
@@ -1149,7 +1149,7 @@ public class SpringConfig {
 
 테스트 역시 정상 동작합니다.
 
-![img_11.png](img_11.png)
+![img_11](https://user-images.githubusercontent.com/79847020/156157587-811c7943-ac3c-4469-89aa-76ba1fe1c7e8.png)
 
 * 스프링 데이터 JPA 제공 기능
   * 인터페이스를 통한 기본 CRUD 
@@ -1167,7 +1167,7 @@ AOP가 필요한 상황
 2. 공통 관심 사항(Cross-Cutting Concern) vs 핵심 관심 사항(Core Concern)
 3. 회원 가입 시간, 회원 조회 시간을 측정하고 싶다면?
 
-![img_12.png](img_12.png)
+![img_12](https://user-images.githubusercontent.com/79847020/156157606-cb258c47-0773-4bbd-b3fb-fdbd84b01341.png)
 
 MemberService.java
 ```java
@@ -1224,7 +1224,7 @@ public class MemberService {
 * 횡단 관심사를 분리
 * 비즈니스 로직에 집중 할 수 있다.
 
-![img_13.png](img_13.png)
+![img_13](https://user-images.githubusercontent.com/79847020/156157620-73a01060-7e14-401a-b5bd-453116bb05d2.png)
 
 TimeTraceAop.java
 ```java
@@ -1259,19 +1259,19 @@ public class TimeTraceAop {
 
 ### AOP 적용 전 의존관계
 
-![img_14.png](img_14.png)
+![img_14](https://user-images.githubusercontent.com/79847020/156157631-3c333665-673d-4abf-b9a9-9f07a70f2d4c.png)
 
 ### AOP 적용 후 의존관계
 
-![img_15.png](img_15.png)
+![img_15](https://user-images.githubusercontent.com/79847020/156157643-4b5c0e57-07c7-433c-80e2-be846764f09e.png)
 
 ### AOP 적용 전 전체 그림
 
-![img_16.png](img_16.png)
+![img_16](https://user-images.githubusercontent.com/79847020/156157652-a4e0366c-d29b-498f-bed9-38498f95cf04.png)
 
 ### AOP 적용 후 전체 그림
 
-![img_17.png](img_17.png)
+![img_17](https://user-images.githubusercontent.com/79847020/156157660-bd458f83-67d1-4d78-b0f8-589cbb04827d.png)
 
 ```text
 START: execution(Long hello.hellospring.service.MemberService.join(Member))
