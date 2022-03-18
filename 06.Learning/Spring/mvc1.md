@@ -1719,11 +1719,11 @@ HttpServletRequest request, HttpServletResponse response
 
 프론트 컨트롤러 도입 전
 
-![img_51.png](img_51.png)
+![image](https://user-images.githubusercontent.com/79847020/159016625-c03dcdbc-1f8b-4247-a7b1-693b73c094ee.png)
 
 프론트 컨트롤러 도입 후
 
-![img_52.png](img_52.png)
+![img_52](https://user-images.githubusercontent.com/79847020/159016630-1c8d2ad9-b7be-43a4-87d9-59cd7056c159.png)
 
 FronController 패턴 특징
 1. 프론트 컨트롤러 서블릿 하나로 클라이언트의 요청을 받음
@@ -1739,7 +1739,7 @@ FronController 패턴 특징
 
 프론트 컨트롤러를 단계적으로 도입해보자. 기존 코드를 최대한 유지하면서 프론트 컨트롤러를 도입하는 것이다. 
 
-![img_53.png](img_53.png)
+![img_53](https://user-images.githubusercontent.com/79847020/159016651-8f073381-b9ed-43ac-b254-2878f598907f.png)
 
 ControllerV1
 ControllerV1.java
@@ -1872,7 +1872,7 @@ RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
 dispatcher.forward(request, response);
 ```
 
-![img_54.png](img_54.png)
+![img_54](https://user-images.githubusercontent.com/79847020/159016667-f5ce7250-bc31-469e-8aae-c351e2e8636e.png)
 
 MyView.java
 ```java
@@ -2009,7 +2009,7 @@ MyView.render()
 * /WEB-INF/views//members.jsp -> members
 * 변경의 지점을 축소할 수 있는 변경은 좋은 변경이다.
 
-![img_55.png](img_55.png)
+![img_55](https://user-images.githubusercontent.com/79847020/159016683-387d0e12-7aa1-4aef-a131-1b6feb2fb420.png)
 
 ModelAndView
 * 지금까지 컨트롤러에서 서블릿에 종속적인 HttpServletReuest를 사용했다. Model도 request.setAttribute()를 통해 데이터를 저장하고 뷰에 전달했다. 
@@ -2197,7 +2197,7 @@ public class MyView {
 
 이번에는 v3를 조금 변경해서 실제 구현하는 개발자들이 매우 편리하게 개발할 수 있는 v4 버전을 개발해보자.
 
-![img_56.png](img_56.png)
+![img_56](https://user-images.githubusercontent.com/79847020/159016717-3753efa5-0104-4fd1-91cd-4f381b51f68b.png)
 
 ControllerV4
 ```java
@@ -2338,7 +2338,7 @@ public interface ControllerV4 {
 어댑터 패턴
 * 지금까지 우리가 개발한 프론트 컨트롤러는 한가지 방식의 컨트롤러 인터페이스만 사용할 수 있다. ControllerV3, ControllerV4는 완전히 다른 인터페이스이다. 따라서 호환이 불가능하다. 마치 v3는 110v이고 v4는 220v 전기 콘센트 같은 것이다. 이럴 때 사용하는 것이 어댑터이다.
 
-![img_57.png](img_57.png)
+![img_57](https://user-images.githubusercontent.com/79847020/159016730-705c09ac-91cb-4496-b48a-71abbdf9f0b7.png)
 
 핸들러 어댑터
 * 중간에 어댑터 역할을 하는 어댑터가 추가되었는데 핸들러 어댑터이다. 어댑터 역할을 해주는 덕분에 다양한 종류의 컨트롤러를 호출할 수 있다.
@@ -2620,7 +2620,7 @@ String viewName = controller.process(paramMap, model);
 ```
 handler를 ControllerV4로 캐스팅 하고 paramMap, model을 만들어서 해당 컨트롤러를 호출한다. 그리고 viewName을 반환 받는다.
 
-어댑터 변ㅌ환
+어댑터 변환
 ```java
 
 ```
