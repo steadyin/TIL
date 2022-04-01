@@ -18,7 +18,7 @@ Interface는 Abstract와 비슷하지만 실질적인 구현이 전혀 없는 Ab
 
 정리하면
 
-* Abstract Class A extends B -> A가 B를 확장한 클래스 관계를 디자인할 때, Interface는 A has B -> A는 B의 기능을 포함한다를 디자인 할 때 사용됩니다.
+* Abstract Class A extends B -> A가 B를 확장한 클래스 관계를 디자인할 때, Interface는 A has B -> A는 B의 기능 구현을 강요할 때 사용됩니다.
 * Abstract Class는 단일 상속(Sigle Inheritance)만 가능하며, Interface는 다중 상속(Multiple Inheritance) 다중 구현(Multiple Implementations)이 가능합니다. 
 * Abstract Class는 모든 접근 제어자(private, public, protected, default)가 선언 가능하며, Interface는 public만 가능합니다.
 * Abstract Class는 일반적인 변수와, 상수가 사용 가능하며, Interface는 상수만 사용이 가능합니다.
