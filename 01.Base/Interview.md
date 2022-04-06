@@ -66,7 +66,7 @@ Array의 특징 중에 fixed-size의 한계점을 보완하고자 고안된 자�
 
 ## 2.1 Dynamic Array Resize
 
-![img_2.png](img_2.png)
+![img_2](https://user-images.githubusercontent.com/79847020/161904667-bdf6cb85-f7c2-46a2-b8ba-fc73e39e361b.png)
 
 Dynamic Array는 size를 자동적으로 resizeng하는 Array입니다. 기존에 고정된 size를 가진 Static Array의 한계점을 보안하고자 고안되었습니다. Dynamic Array는 data를 계속 추가하다가 기존에 할당된 memory를 초과하게 되면 size를 늘린 배열을 선언하고 그곳으로 모든 데이터를 옮김으로써 늘어난 크기의 size를 가진 배열이 됩니다. 이를 resize라고 합니다. 이로써 새로운 data를 저장할 수 있게 됩니다. 따라서 Dyanamic Array는 Size를 미리 고민할 필요없다는 장점이 있습니다.
 
@@ -109,7 +109,7 @@ append의 총 과정을 살펴보면 데이터를 마지막 인덱스에 추가�
 
 운영체제를 관통하는 핵심적인 단어 하나를 뽑는다면 바로 Process 입니다. 운영체제가 작동하는 다양한 원리들이 바로 process를 위해 존재하는 것입니다. Procee를 memory와 cpu관점으로 면접관에게 설명을 하시면 됩니다.
 
-![img_3.png](img_3.png)
+![img_3](https://user-images.githubusercontent.com/79847020/161904680-72178e79-aabc-4221-821b-28fd97b0465f.png)
 
 Coding을 해서 Compile을 하면 Program이 생성됩니다. Program을 실행하면 CPU가 프로그램을 읽어야 하는데 하드디스크에 있는 Program을 읽을 수 없습니다. Ram 메모리에 올라가 있는 프로그램만 읽을 수 있습니다. 따라서 Program을 Ram 메모리에 적재를 합니다. 그렇게 되면 CPU가 Ram 메모리에 있는 명령어 한줄 한줄을 읽을 수 있게 됩니다. 
 
@@ -133,7 +133,7 @@ Data 영역 : 프로그램의 전역 변수와 static 변수가 저장되는 메
 Heap 영역 : 프로그래머가 직접 공간을 할당(malloc)/해제(free) 하는 메모리 영역
 Stack 영역 : 함수 호출시 생성되는 지역 변수와 매개 변수가 저장되는 임시 메모리 영역
 
-![img_4.png](img_4.png)
+![img_4](https://user-images.githubusercontent.com/79847020/161904696-f9ceff5f-d2e1-4fc8-be9f-1b32da97b451.png)
 
 ## CPU의 연산과 PC Register
 
@@ -171,7 +171,7 @@ MultiProcess란 2개 이상의 process가 동시에 실행되는 것을 말합�
 
 여러 process가 동시에 memory에 적재된 경우 서로 다른 process의 영역을 침범하지 않도록 각 process가 자신의 memory영역에만 접근하도록 운영체제가 관리해줍니다.
 
-![img_5.png](img_5.png)
+![img_5](https://user-images.githubusercontent.com/79847020/161904711-d0ba3e05-c20b-413d-a01c-37684d016886.png)
 
 ## CPU의 연산과 PC Register
 
@@ -179,7 +179,7 @@ CPU는 PC(Program Counter) Register가 가리키고 있는 명령어를 읽어�
 
 Memory의 경우에는 여러 process들이 각자의 memory영역을 차지하여 동시에 적재 됩니다. 반면 하나의 CPU는 매 순간 하나의 process만 연산할 수 있습니다. 하지만 CPU의 처리 속도가 워낙 빨라서 수 ms 이내의 짧은 시간 동아 녀얼 process들이 CPU에서 번갈아 실행되기 때문에 
 
-![img_6.png](img_6.png)
+![img_6](https://user-images.githubusercontent.com/79847020/161904722-9a70dc87-e502-4af7-9d22-0a960a7c6cca.png)
 
 ### Context
 
@@ -204,7 +204,7 @@ PCB에는 일반적으로 다음과 같은 정보가 포함됩니다.
 
 Process State 이 프로세스가 실행되고 있는지, CPU 할당을 받지 못해서 기다리고 있는지, 따로 어떤 작업을 해서 멈춰 있는지에 대한 정보를 나타냅니다. Process Number은 Process의 고유한 식별 번호, PC, Registers, Memory limits 등이 저장되어 있습니다.
 
-![img_9.png](img_9.png "test")
+![img_9](https://user-images.githubusercontent.com/79847020/161904730-8ef9344f-937f-4ef7-abf4-fbdd41fbe241.png)
 
 메모리에 프로세스들이 올라가 있습니다. 그런데 kernel이 맨 위에 있습니다. kernel은 운영체제를 의미합니다. 운영체제도 하나의 프로세스 입니다. 운영체제라는 프로세스가 돌아갈 때도 정보와 코드들이 메모리에 올라가야 실행이 되겠죠. 그래서 커널영역은 컴퓨터를 키는 순간부터 메모리에 적재되서 실행됩니다.     
 
@@ -216,7 +216,7 @@ Context switch란 한 프로세스에서 다른 프로세스로 `CPU 제어권�
 
 이 때 이전의 프로세스의 상태를 `PCB에 저장하여 보관`하고 `새로운 프로세스`의 `PCB를 읽어서 보관된 상태를 복구`하는 작업이 이루어집니다.
 
-![img_10.png](img_10.png)
+ ![img_10](https://user-images.githubusercontent.com/79847020/161904739-31edd9af-8963-4439-bf9b-b0bf8b522f5e.png)
 
 ### Register ?
 
@@ -281,7 +281,7 @@ thread가 함수를 호출하기 위해서는 인자 전달, Return Address 저�
 
 또한 multi thread에서는 각각의 thread마다 PC register를 가지고 있어야 합니다. 그 이유는 한 process 내에서도 thread끼리 context switch가 일어나게 되는데, PC register에 code address가 저장되어 있어야 이어서 실행을 할 수 있기 때문입니다.
 
-![img_12.png](img_12.png)
+![img_12](https://user-images.githubusercontent.com/79847020/161904750-88866e32-445e-42f5-a299-3d2455f38948.png)
 
 ### thread는 왜 독립적인 stack memory영역이 필요한가요?
 
@@ -305,7 +305,7 @@ Table 중 데이터베이스에서 사용되기 위한 조건을 갖춘 것이 R
 
 하지만 통상적으로 Relation과 Table이란 용어를 구분하지 않고 사용하기도 합니다.
 
-![img_13.png](img_13.png)
+![img_13](https://user-images.githubusercontent.com/79847020/161904765-8d3bc02b-aa84-417c-86cd-1361a8e51a40.png)
 
 Table = Relation
 Column = Attribute
@@ -333,7 +333,7 @@ Primary Key(기본키)는 Candidate Key 중 선택한 Main Key로서 각 row를 
 
 Alternative Key(대체키)는 후보키가 두 개 이상일 경우 기본키로 지정이 되지 못하고 남은 후보키들을 말합니다.
 
-![img_14.png](img_14.png)
+![img_14](https://user-images.githubusercontent.com/79847020/161904786-09c071cc-0150-4b99-b1df-9d778bd066fd.png)
 
 Q. Primary Key와 Foreign Key에 대해 설명 해주세요.
 
@@ -353,7 +353,7 @@ Q. Composite Key에 대해 설명하시오.
 
 COmposite Key란 Table에서 각 row를 식별할 수 있는 두 개 이상의 Column으로 구성된s Candidate Key를 말합니다.
 
-![img_15.png](img_15.png)
+![img_15](https://user-images.githubusercontent.com/79847020/161904801-2032a7d9-35cc-4d05-a9c1-62eb63650957.png)
 
 ## 관계형 데이터베이스의 N:M 관계에 대해서 설명해 주세요.
 
@@ -372,9 +372,9 @@ N:M관계는 실제 프로젝트에서 자주 쓰이면서도 제대로 이해�
 
 실무에서 가장 자주 등장하는 1:N 구조인 고객-주문 관계를 살펴보겠습니다.
 
-![img_16.png](img_16.png)
+![img_16](https://user-images.githubusercontent.com/79847020/161904810-4127a637-7d3d-498c-a57d-a94dd32eacb8.png)
 
-![img_17.png](img_17.png)
+![img_17](https://user-images.githubusercontent.com/79847020/161904825-26484446-c089-4168-8d10-aa72d525768b.png)
 
 1:N 구조에서는 보통 Primary Key - Foreign Key를 사용하여 관계를 맺습니다.
 
@@ -386,9 +386,9 @@ Foreign Key(외래키)는 다른 Table의 Primary Key Column과 연결되는(참
 
 N:M 구조에서는 보통 새로운 Table(Mapping Table)을 통해서 관계를 맺습니다. 가장 친숙한 N:M 구조인 학샙-수업 관계를 살펴보겠습니다.
 
-![img_18.png](img_18.png)
+![img_18](https://user-images.githubusercontent.com/79847020/161904835-5e632f73-f1be-4953-8504-036e2b105ede.png)
 
-![img_19.png](img_19.png)
+![img_19](https://user-images.githubusercontent.com/79847020/161904845-07775d14-935c-416b-af79-11d0da931fb5.png)
 
 ## 1:N 관계를 대해서 설명해주세요.
 
@@ -409,7 +409,7 @@ select * from vedio inner join youtuber on vedio.y_id = youtuber.id;
 ```
 두 테이블을 연결할 때 가장 많이 사용되는 것이 inner join 입니다. inner join은 줄여서 join으로 부르기도 합니다. 두 테이블을 join하기 위해서는 두 테이블이 1:N 관계로 연결되어야 합니다. 1:N 관계는 주로 primary key와 foreign key 관계로 맺어져 있습니다. (상호조인의 경우에는 PK-FK 관계까 아니여도 됩니다.)
 
-![img_20.png](img_20.png)
+![img_20](https://user-images.githubusercontent.com/79847020/161904853-0eb20113-63b9-4611-803f-172959afa8d0.png)
 
 두 table에 공통된 데이터가 존재하는 행에 대해서만 데이터를 검색합니다.
 
