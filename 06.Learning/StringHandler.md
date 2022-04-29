@@ -45,7 +45,7 @@
 
 # 1 주차 - 과제를 함께 풀어보고 공유
 
-# 문제 - URL 파싱 후 데이터 가공하기
+## 문제 - URL 파싱 후 데이터 가공하기
 
 ![image](https://user-images.githubusercontent.com/79847020/165892888-7eb5a54a-b431-4bd6-8d14-5a5f14d72266.png)
 
@@ -69,7 +69,7 @@
    * 몫 ‘A0a1B2’
    * 나머지 ‘b3’
 
-# 과제전 팁 몇 가지
+## 과제전 팁 몇 가지
 
 1. 프론트 페이지는 없어도 됨 -> API 만드는게 목적
 2. 예외처리 꼼꼼히
@@ -93,57 +93,68 @@
 
 ## 프로젝트 시작
 
-Git Repo 생성
+### Git Repo 생성
 
 ![image](https://user-images.githubusercontent.com/79847020/165891645-7431c12b-511b-40f2-b0f7-8fc7309c3d3c.png)
 
-프로젝트 생성
+### 프로젝트 생성
 
-![img_9.png](img_9.png)
+![image](https://user-images.githubusercontent.com/79847020/165893494-60215d35-5248-4884-b15d-beab2393f45a.png)
 
-![img_8.png](img_8.png)
+![image](https://user-images.githubusercontent.com/79847020/165893599-5e52aa39-90b7-4363-991d-cd8a4a1631dc.png)
 
-Terminal 
-
-git config --global user.name Jihoon-Park/Engineer
-git config --global user.name steadyin95@gmail.com
+### Git init
 
 ```
 > echo "# string-handler" >> README.md
 > git init
-Initialized empty Git repository in C:/study/98.WORK/string-handler/.git/
 > git add .
 > git commit -m "setting:프로젝트 세팅"
-[main (root-commit) 21a323a] setting:프로젝트 세팅
- 11 files changed, 422 insertions(+)
 > git branch -m main
-> git remote add origin https://github.com/steadyin/string-handler.git
+> git remote add origin git@github.com:steadyin/String-Handler.git
 > git push -u origin main
 ```
 
-Git Author 정보 수정 
-```
-git config user.name Jihoon-Park/Engineer
-git config user.email steadyin95@gmail.com
+### Git Author 정보
 
-git commit --amend --author Jihoon-Park<steadyin95@gmail.com>
-git push -f
-```
+* 글로벌 설정
 
-Issue 만들기
+ ```
+ git config --global user.name Jihoon-Park/Engineer
+ git config --global user.email steadyin95@gmail.com
+ ```
 
-![img_10.png](img_10.png)
-![img_11.png](img_11.png)
+* 일반 설정
+ 
+ ```
+ git config user.name Jihoon-Park/Engineer
+ git config user.email steadyin95@gmail.com
+ ```
+
+* Commit 수정
+
+ ```
+ git commit --amend --author Jihoon-Park<steadyin95@gmail.com>
+ git push -f
+ ```
+
+* Issue 만들기
+
+  ![image](https://user-images.githubusercontent.com/79847020/165899869-f9160faa-fe07-44d9-afbc-c9aea53a1f35.png)
 
 Tracking Number는 PullRequest가 점유할수도 있으므로 순차적이지 않은것은 넘기자.
-다음 깃 명령어로 체크아웃을 하며 브랜치를 바로 생성할 수 있다. 브랜치 명명 규칙은 회사마다 다르다.
+
+다음 깃 명령어로 체크아웃을 하며 브랜치를 바로 생성할 수 있다. 브랜치 명명 규칙은 회사마다 다르다. 여기서는 feature/[이슈번호] 양식으로 생성하겠습니다.
 ```
 git checkout -b feature/1
 ```
 
-패키지 구조
+사실 개발을 하기전에 패키지 구조가 먼저 잡혀져 있으면 좋을 것 같습니다.
+
 String-handler
+
 ㄴcontroller
+
 ㄴservice
 
 URL규칙은 구글에서 'RestAPI'로 검색 후 한번 살펴보는게 좋습니다.
