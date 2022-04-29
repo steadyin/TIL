@@ -142,20 +142,27 @@
 
   ![image](https://user-images.githubusercontent.com/79847020/165899869-f9160faa-fe07-44d9-afbc-c9aea53a1f35.png)
 
-Tracking Number는 PullRequest가 점유할수도 있으므로 순차적이지 않은것은 넘기자.
+  Tracking Number는 PullRequest가 점유할수도 있으므로 순차적이지는 않다. 
+  
+* 패키지 구조 잡기  
 
+사실 개발을 하기전에 패키지 구조가 먼저 잡혀져 있으면 좋을 것 같습니다.
+
+  String-handler
+
+  ㄴcontroller
+
+  ㄴservice
+
+  
+  
+  
 다음 깃 명령어로 체크아웃을 하며 브랜치를 바로 생성할 수 있다. 브랜치 명명 규칙은 회사마다 다르다. 여기서는 feature/[이슈번호] 양식으로 생성하겠습니다.
 ```
 git checkout -b feature/1
 ```
 
-사실 개발을 하기전에 패키지 구조가 먼저 잡혀져 있으면 좋을 것 같습니다.
 
-String-handler
-
-ㄴcontroller
-
-ㄴservice
 
 URL규칙은 구글에서 'RestAPI'로 검색 후 한번 살펴보는게 좋습니다.
 Post, Get은 선택입니다. 여기서는 Post로 하겠습니다.
