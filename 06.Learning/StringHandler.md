@@ -82,7 +82,7 @@
 9. 더 개선할 점은 없는지 생각해보고 리팩토링 하기
 10. 커밋 단위는 기능당 한개
 11. 커밋 메시지 통일성 있게 
-( 잘 모른다면 앵귤러 커밋 컨벤션 참고 - https://velog.io/@outstandingboy/Git-%EC%BB%A4%EB%B0%8B-%EB%A9%94 %EC%8B%9C%EC%A7%80-%EA%B7%9C%EC%95%BD-%EC%A0%95%EB% A6%AC-the-AngularJS-commit-conventions)
+( 잘 모른다면 앵귤러 커밋 컨벤션 참고 - https://velog.io/@outstandingboy/Git-%EC%BB%A4%EB%B0%8B-%EB%A9%94%EC%8B%9C%EC%A7%80-%EA%B7%9C%EC%95%BD-%EC%A0%95%EB%A6%AC-the-AngularJS-commit-conventions)
   * fix : 버그 수정
   * docs : 문서 관련
   * style : 스타일 변경 (포매팅 수정, 들여쓰기 추가, …)
