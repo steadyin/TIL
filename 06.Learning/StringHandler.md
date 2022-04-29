@@ -146,93 +146,86 @@
   
 * 패키지 구조 잡기  
 
-사실 개발을 하기전에 패키지 구조가 먼저 잡혀져 있으면 좋을 것 같습니다.
+  사실 개발을 하기전에 패키지 구조가 먼저 잡혀져 있으면 좋을 것 같습니다.
 
   String-handler
 
   ㄴcontroller
 
   ㄴservice
-
   
+  구글에서 RestAPI 관련 문서를 살펴보는 것을 추천드립니다. URL 설계시 도움이 됩니다.
   
+  URL 파싱 후 HTML 가져오는 기능의 경우 Get, Post 상관없습니다. 여기서는 Post로 하겠습니다.
   
-다음 깃 명령어로 체크아웃을 하며 브랜치를 바로 생성할 수 있다. 브랜치 명명 규칙은 회사마다 다르다. 여기서는 feature/[이슈번호] 양식으로 생성하겠습니다.
-```
-git checkout -b feature/1
-```
+  깃 명령어로 체크아웃을 하며 브랜치를 바로 생성할 수 있습니다. 브랜치 명명 규칙은 회사마다 다릅니다. 여기서는 feature/[이슈번호] 으로 생성하겠습니다.
+  
+  ```
+  git checkout -b feature/1
+  ```
 
-
-
-URL규칙은 구글에서 'RestAPI'로 검색 후 한번 살펴보는게 좋습니다.
-Post, Get은 선택입니다. 여기서는 Post로 하겠습니다.
-
-```java
-@RestController
-@RequiredArgsConstructor
-public class ParseController {
-    @PostMapping("api/v1/")
-}
-```
-
-API 만들때 생각해야 될게 요구사항 request, response가 뭔지 정의.
-여기서는 URL, TYPE, 출력 묶음 단위가 request가 되는 거고 몫, 나머지가 response가 됩니다.
-
-controller/ParseController.java
-```java
-@RestController
-@RequiredArgsConstructor
-public class ParseController {
-    private final ParseService parseService;
-
+  API 만들때 생각해야 될게 요구사항 request, response가 뭔지 생각해야되는데 여기서는 URL, TYPE, 출력 묶음 단위가 request가 되는 거고 몫, 나머지가 response가 됩니다.
+  
+  controller/ParseController.java
+  ```java
+  @RestController
+  @RequiredArgsConstructor
+  public class ParseController {
+      private final ParseService parseService;
+  
     @PostMapping("api/parse")
     public ResponseEntity<ParseResponse> parse(@RequestBody @Valid ParseRequest request) {
         final ParseResponse response = parseService.parse(request);
         return ResponseEntity.ok(response);
     }
-}
-```
-dto/ParseRequest.java
-```java
-//request -> url, type(노출 유형), 출력 묶음 단위
-@RequiredArgsConstructor
-@Getter
-public class ParseRequest {
-    private final String url;
-    private final String exposureType;
-    private final Integer unitCount;
-}
-```
+  }
+  ```
 
-dto/ParseResponse.java
-```java
-//response -> 몫, 나머지
-@RequiredArgsConstructor
-public class ParseResponse {
-   private final String quotient;
-   private final String remainder;
-} 
-```
+  dto/ParseRequest.java
+  ```java
+  //request -> url, type(노출 유형), 출력 묶음 단위
+  @RequiredArgsConstructor
+  @Getter
+  public class ParseRequest {
+      private final String url;
+      private final String exposureType;
+      private final Integer unitCount;
+  }
+  ```
 
-DTO의 필드는 final를 붙여두고 @RequiredArgsConstructor 롬복 애노테이션을 적용합니다.
+  dto/ParseResponse.java
+  ```java
+  //response -> 몫, 나머지
+  @RequiredArgsConstructor
+  public class ParseResponse {
+     private final String quotient;
+     private final String remainder;
+  } 
+  ```
 
+  DTO의 필드는 final를 붙여두고 @RequiredArgsConstructor 롬복 애노테이션을 적용합니다.
 
-service/ParseSErvice.java
-```java
-@Service
-public class ParseService {
-    public ParseResponse parse(ParseRequest request) {
-        return null;
-    }
-}
-```
-의존성 주입(DI)
-- 필드 주입, Setter 주입, 생성자 주입
-- 생성자 주입으로 하자.
-- 생성자 주입으로 할 때는 필드에 final을 적용하고 @RequireArgsConstructor Lombok 애노테이션을 활용하자.
-- @Autowired를 기피하자.
+  service/ParseService.java
+  ```java
+  @Service
+  public class ParseService {
+      public ParseResponse parse(ParseRequest request) {
+          return null;
+      }
+  }
+  ```
 
-여기까지해서 커밋을 해보겠습니다. 
+* 의존성
+
+  의존성 주입(DI)
+  - 필드 주입, Setter 주입, 생성자 주입
+  - 생성자 주입으로 하자.
+  - 생성자 주입으로 할 때는 필드에 final을 적용하고 @RequireArgsConstructor Lombok 애노테이션을 활용하자.
+  - @Autowired를 기피하자.
+
+  여기까지해서 커밋을 해보겠습니다. 
+  
+  
 
 ```markdown
 PS C:\study\98.WORK\string-handler> git status
