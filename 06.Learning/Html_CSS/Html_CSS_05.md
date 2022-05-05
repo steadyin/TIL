@@ -69,7 +69,7 @@ href는 \<a\>의 부가정보입니다. 부가정보는 속성, Attribute라 부
 
 ![image](https://user-images.githubusercontent.com/79847020/166933478-61e3744e-0237-41f3-a7bd-299a33ed3bd4.png)
 
-
+링크는 손가락모양으로 뜨지만 버튼은 기본 마우스 모양으로 뜹니다.
 
 
 
