@@ -7,10 +7,6 @@
 ## Daily 
   - Programmer 문제
 
-## 4월
-  * 4월 4주차 평 (2022-04-24 ~ 2022-05-01) - 
-  * 4월 4주차 주 (2022-04-24 ~ 2022-05-01) - HTML/CSS 제로초 강의 완강, Java8 정리
-
 ## 5월
   * 5월 1주차 평 (2022-05-02 ~ 2022-05-06) - HTTPS/SSL, StringHandler 정리, HTML/CSS 제로초 강의
   * 5월 1주차 주 (2022-05-07 ~ 2022-05-08) - HTTPS/SSL, StringHandler 정리, HTML/CSS 제로초 강의
