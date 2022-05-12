@@ -276,7 +276,7 @@ build.gradle에 라이브러리를 추가하겠습니다.
 implementation 'org.jsoup:jsoup:1.14.3'
 ```
 라이브러리 추가 된 것을 확인합니다.
-![img_12.png](img_12.png)
+![image](https://user-images.githubusercontent.com/79847020/168031736-eaa91b26-b605-491d-9c23-5a7aebd600cd.png)
 
 Jsoup를 이용해서 다음과 같이 작성합니다.
 ```java
