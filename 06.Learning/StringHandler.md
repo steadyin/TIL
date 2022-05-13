@@ -565,8 +565,38 @@ public enum ExposureType {
 }
 ```
 
-인텔리 J 단축키 Introduce Constant : Ctrl + Alt + C 로 상수를 정리하면 다음과 같이 된다.
+ALL_TEXT는 들어온 str이 그대로 return 되면 됩니다. REMOVE_HTML은 replaceAll 메소드로 정규식을 ""(empty)로 replace하겠습니다.
+여기서는 간단하게 \<,\>만 제거하는 것으로 생각해서 정규식으로 표현했습니다. ""또한 마찬가지 입니다.
+정규식의 경우 코드에 "\<[^\>]*\>"로만 작성되어 있으면 다른 사람이 이해하기 어려우므로 상수로 뺍니다. 
+인텔리 J 단축키 Introduce Constant : Ctrl + Alt + C 로 상수를 정리하면 다음과 같습니다.
 
+```java
+@RequiredArgsConstructor
+public enum ExposureType {
+    REMOVE_HTML(str -> str.replaceAll(Constants.REMOVE_TAG_PATTERN, Constants.EMPTY)),
+    ALL_TEXT(str -> str);
+
+    private static class Constants {
+        public static final String REMOVE_TAG_PATTERN = "<[^>]*>";
+        public static final String EMPTY = "";
+    }
+}
+```
+
+function을 정의하고 
+
+```java
+    private final Function<String, String> function;
+```
+
+사용하는부분을 작성합니다.
+
+```java
+    public String getExposedHtml(final String str) {
+        return function.apply(str);
+    }
+```    
+    
 ```java
 @RequiredArgsConstructor
 public enum ExposureType {
@@ -726,7 +756,8 @@ Fast-forward
 ```
 
 github 확인
-![img_21.png](img_21.png)
+![image](https://user-images.githubusercontent.com/79847020/168241964-071cbaa1-c7aa-41d0-9944-44e68c81f4d1.png)
+![image](https://user-images.githubusercontent.com/79847020/168242015-62eed6e6-7eea-459e-8a64-12ab6d6f308d.png)
 
 ## 영어, 숫자 분리
 
@@ -738,7 +769,7 @@ Switched to a new branch 'feature/3'
 
 Separator클래스를 생성합니다. Separator는 영어와 숫자를 분리하는 역할을 담당할것입니다. 방법이 여러가지가 있을텐데 정규식을 이용하도록 하겠습니다.
 
-정규식에 그룹핑하는 기능이 있습니다.
+정규식에 그룹핑하는 기능이 있습니다. 그룹핑 기능을 이용해서 영어와 숫자를 분리합니다.
 
 Separator
 ```java
@@ -789,7 +820,7 @@ class SeparatorTest {
     @Test
     void removeSpecialChars() {
         final Separator sep = separator.separate("e4C3!d@BA#1a$Df$2c^EA[b0]bF");
-        assertAll(
+        assertAll( //AssertAll
                 () -> assertThat(sep.getEnglish()).isEqualTo("eCdBAaDfcEAbbF"),
                 () -> assertThat(sep.getNumber()).isEqualTo("43120")
         );
@@ -805,6 +836,8 @@ class SeparatorTest {
     assertThat(sep.getNumber()).isEqualTo("43120")
 ```
 이렇게 작성하면 둘 다 정상동작하지 않을 때 첫번째 메소드만 테스트하게 됩니다. 이런 것들이 불편할수 있는데 assertAll을 사용해서 위와 같이 작성할 수도 있습니다. assertAll을 사용하면 각 테스트 명령어에 상관없이 모든 테스트 명령어가 실행됩니다. 여러가지 테스트를 한 메서드에 실행할 때 사용하면 유용하다.
+
+Separator에서 영어와 숫자를 뽑아 올 수도 있겠지만 Separator 인스턴스르 통째로 넘겨서 다음 기능을 추가할 것이기 때문에 다음과 같이 작성했습니다.
 
 ParseService
 ```java
@@ -825,6 +858,10 @@ public class ParseService {
     }
 }
 ```
+
+
+
+
 
 git status
 ```markdown
@@ -868,7 +905,7 @@ Branch 'feature/3' set up to track remote branch 'feature/3' from 'origin'.
 ```
 
 Create Pull Request, Rebase And Merge
-![img_22.png](img_22.png)
+![image](https://user-images.githubusercontent.com/79847020/168242783-e563ced9-6313-4f38-8146-7236e1968c13.png)
 
 git pull
 ```
@@ -890,6 +927,8 @@ Fast-forward
  create mode 100644 src/main/java/com/steadyin/parse/util/Separator.java
  create mode 100644 src/test/java/com/steadyin/parse/util/SeparatorTest.java
 ```
+
+
 
 ## 오름차순 정렬
 
