@@ -288,7 +288,7 @@ public class UrlConnector {
 
     public String getHtml(final String url) {
         try {
-            Jsoup.connect(url).get().html();
+            return Jsoup.connect(url).get().html();
         } catch (IOException e) {
             throw new IllegalArgumentException("접근할 수 없는 url입니다.");
         }
@@ -302,12 +302,15 @@ public class UrlConnector {
 ## 테스트 작성
 
 일단 URLConnector를 사용할 수 있도록 세팅을 해야 하자나요. 그런데 URLConnector를 보면 아시겠지만 생성자가 없잖아요. 꼭 컴포넌트라고 해서 테스트를 할 때 꼭 Autowired를 해야되는 것은 아니거든요. 일반 클래스와 같이 때문에 테스트 코드에서는 조금 더 빨리 로딩할 수 있게 new 연산자를 사용해서 다음과 같이 가져오는 방법이 있습니다. 
+
 ```java
 class UrlConnectorTest  {
    private final UrlConnector urlConnector = new UrlConnector();
 }
 ``` 
+
 다음과 같이 두가지 테스트 메소드를 추가하겠습니다.
+
 ```java
    @DisplayName("url입력시 html을 가져올 수 있다.")
    @Test
@@ -321,6 +324,7 @@ class UrlConnectorTest  {
 
    }
 ```
+
 다음과 같이 성공 테스트를 간단하게 작성할 수 있습니다.
 ```java
     @DisplayName("url입력시 html을 가져올 수 있다.")
@@ -347,27 +351,18 @@ class UrlConnectorTest  {
 
 완성 된 테스트는 다음과 같다.
 ```java
-package com.steadyin.parse.util;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 class UrlConnectorTest {
    private final UrlConnector urlConnector = new UrlConnector();
 
-   @DisplayName("잘못된 url입력시 IllegalArgumentException이 발생한다.")
-   @Test
-   void urlFailtTest() {
-      assertThatThrownBy(() -> urlConnector.getHtml("wrong.url.ccc"))
-        .isInstanceOf(IllegalArgumentException.class)
-      //추가로 hasMessage()로 예외 메시지까지 테스트 확인할 수 있다.
-      ;
-   }
+    @DisplayName("잘못된 url입력시 IllegalArgumentException이 발생한다.")
+    @ParameterizedTest
+    @CsvSource({"https://www.naver.fail", "https://www.fail.fail"})
+    void urlFaildTest(final String url) {
+        assertThatThrownBy(() -> urlConnector.getHtml(url))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("접근할 수 없는 url입니다.")
+        ;
+    }
 
    @DisplayName("url입력시 html을 가져올 수 있다.")
    @ParameterizedTest
@@ -402,113 +397,89 @@ public class ParseService {
 
 그럼 이슈 'URL 파싱 후 HTML 가져오기'는 끝났습니다. git status 확인 해보고   
 ```markdown
-PS C:\study\98.WORK\string-handler> git status
+PS C:\Study\String-Handler> git status
 On branch feature/1
-Changes to be committed:
-(use "git restore --staged <file>..." to unstage)
-renamed:    src/main/java/com/steadyin/stringhandler/StringHandlerApplication.java -> src/main/java/com/steadyin/parse/StringHa
-ndlerApplication.java
-renamed:    src/main/java/com/steadyin/stringhandler/controller/ParseController.java -> src/main/java/com/steadyin/parse/contro
-ller/ParseController.java
-renamed:    src/main/java/com/steadyin/stringhandler/dto/ParseRequest.java -> src/main/java/com/steadyin/parse/dto/ParseRequest
-.java
-renamed:    src/main/java/com/steadyin/stringhandler/dto/ParseResponse.java -> src/main/java/com/steadyin/parse/dto/ParseRespon
-se.java
-renamed:    src/main/java/com/steadyin/stringhandler/service/ParseService.java -> src/main/java/com/steadyin/parse/service/Pars
-eService.java
-renamed:    src/test/java/com/steadyin/stringhandler/StringHandlerApplicationTests.java -> src/test/java/com/steadyin/parse/Str
-ingHandlerApplicationTests.java
+Your branch is ahead of 'origin/feature/1' by 1 commit.
+  (use "git push" to publish your local commits)
 
 Changes not staged for commit:
-(use "git add <file>..." to update what will be committed)
-(use "git restore <file>..." to discard changes in working directory)
-modified:   build.gradle
-modified:   src/main/java/com/steadyin/parse/StringHandlerApplication.java
-modified:   src/main/java/com/steadyin/parse/controller/ParseController.java
-modified:   src/main/java/com/steadyin/parse/dto/ParseRequest.java
-modified:   src/main/java/com/steadyin/parse/dto/ParseResponse.java
-modified:   src/main/java/com/steadyin/parse/service/ParseService.java
-modified:   src/test/java/com/steadyin/parse/StringHandlerApplicationTests.java
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   src/main/java/com/steadyin/stringhandler/service/ParseService.java
 
 Untracked files:
-(use "git add <file>..." to include in what will be committed)
-src/main/java/com/steadyin/parse/util/
-src/test/java/com/steadyin/parse/util/
+  (use "git add <file>..." to include in what will be committed)
+        src/main/java/com/steadyin/stringhandler/util/
+        src/test/java/com/steadyin/stringhandler/util/
+
+no changes added to commit (use "git add" and/or "git commit -a")
 ```
 Commit하겠습니다.
 ```markdown
-PS C:\study\98.WORK\string-handler> git add .
-warning: LF will be replaced by CRLF in build.gradle.
-The file will have its original line endings in your working directory
-warning: LF will be replaced by CRLF in src/main/java/com/steadyin/parse/StringHandlerApplication.java.
-The file will have its original line endings in your working directory
-warning: LF will be replaced by CRLF in src/test/java/com/steadyin/parse/StringHandlerApplicationTests.java.
-The file will have its original line endings in your working directory
-```
-
-```markdown
-PS C:\study\98.WORK\string-handler> git commit -m "feat: UrlConnector 추가"
-[feature/1 50025f3] feat: UrlConnector 추가
- 10 files changed, 76 insertions(+), 20 deletions(-)
- rename src/main/java/com/steadyin/{stringhandler => parse}/StringHandlerApplication.java (89%)
- rename src/main/java/com/steadyin/{stringhandler => parse}/controller/ParseController.java (78%)
- rename src/main/java/com/steadyin/{stringhandler => parse}/dto/ParseRequest.java (86%)
- rename src/main/java/com/steadyin/{stringhandler => parse}/dto/ParseResponse.java (83%)
- create mode 100644 src/main/java/com/steadyin/parse/service/ParseService.java
- create mode 100644 src/main/java/com/steadyin/parse/util/UrlConnector.java
- delete mode 100644 src/main/java/com/steadyin/stringhandler/service/ParseService.java
- rename src/test/java/com/steadyin/{stringhandler => parse}/StringHandlerApplicationTests.java (84%)
- create mode 100644 src/test/java/com/steadyin/parse/util/UrlConnectorTest.java
+PS C:\Study\String-Handler> git add .
+PS C:\Study\String-Handler> git commit -m "feat:UrlConnector 추가"
+[feature/1 adb2f0e] feat:UrlConnector 추가
+ 3 files changed, 56 insertions(+)
+ create mode 100644 src/main/java/com/steadyin/stringhandler/util/UrlConnector.java
+ create mode 100644 src/test/java/com/steadyin/stringhandler/util/UrlConnectorTest.java
 ```
 ```markdown
-PS C:\study\98.WORK\string-handler> git status
+PS C:\Study\String-Handler> git status
 On branch feature/1
+Your branch is ahead of 'origin/feature/1' by 2 commits.
+  (use "git push" to publish your local commits)
+
 nothing to commit, working tree clean
+
 ```
 ```markdown
-PS C:\study\98.WORK\string-handler> git push --set-upstream origin feature/1
-Enumerating objects: 53, done.
-Counting objects: 100% (53/53), done.
+PS C:\Study\String-Handler> git push --set-upstream origin feature/1
+warning: redirecting to https://github.com/steadyin/string-handler/
+Enumerating objects: 46, done.
+Counting objects: 100% (46/46), done.
 Delta compression using up to 8 threads
-Compressing objects: 100% (26/26), done.
-Writing objects: 100% (42/42), 4.52 KiB | 925.00 KiB/s, done.
-Total 42 (delta 8), reused 0 (delta 0), pack-reused 0
-remote: Resolving deltas: 100% (8/8), completed with 2 local objects.
-remote:
-remote: Create a pull request for 'feature/1' on GitHub by visiting:
-remote:      https://github.com/steadyin/string-handler/pull/new/feature/1
-remote:
-To https://github.com/steadyin/string-handler.git
- * [new branch]      feature/1 -> feature/1
+Compressing objects: 100% (20/20), done.
+Writing objects: 100% (35/35), 3.72 KiB | 761.00 KiB/s, done.
+Total 35 (delta 6), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (6/6), completed with 2 local objects.
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/steadyin/String-Handler.git
+To http://github.com/steadyin/string-handler
+   e53f42b..adb2f0e  feature/1 -> feature/1
 Branch 'feature/1' set up to track remote branch 'feature/1' from 'origin'.
 ```
-그럼 Github페이지에서 Pull Request를 확인할 수 있습니다.
+그럼 Github페이지에서 Pull Request를 확인할 수 있습니다. Compare & Pull Request 버튼을 클릭합니다.
 
-![img_13.png](img_13.png)
+![image](https://user-images.githubusercontent.com/79847020/168230206-75b1c22d-e982-48bf-b0c2-3068275d9b15.png)
 
 PullRequest Title과 Assignees 설정을 하고 Pull Request를 생성합니다.
 
 Development메뉴에서 이슈를 연결시킬 수 있습니다.
 
-![img_15.png](img_15.png)
+![image](https://user-images.githubusercontent.com/79847020/168230737-b620eb1d-cc0d-4bf8-a1ce-e5c4f09fb296.png)
 
 PullRequest가 완성되었습니다.
 
-![img_16.png](img_16.png)
+![image](https://user-images.githubusercontent.com/79847020/168231062-3790fc7a-5258-4f2d-9098-447f214bea49.png)
 
  그 다음 Reviewer가 확인하고 메시지를 남기거나 코드에 Review를 남기거나 개발을 해 나가는거죠. 
 
 Merge Pull Request 옵션이 3가지 있는데 Squash는 여러가지 Commit을 하나의 Pull Request에 올렸을 때 하나로 뭉쳐서 Merge를 하는 옵션이 있고 Rebase는 MergeComit이 올라가는게 아니라 여러분이 작성했던 Setting이랑 Feat가 그대로 Main Branch에 합쳐지게 되는 옵션입니다. 이번에는 Rebase And Merge 옵션을 사용하겠습니다.
 
-![img_17.png](img_17.png)
+![image](https://user-images.githubusercontent.com/79847020/168231119-efd15518-57c7-4222-9839-5f9cf7008d6e.png)
 
 Pull request successfully merged and closed 메시지가 출력되고 이슈 메뉴에 다시 들어가면 Close된 것을 확인할 수 있습니다. 
 
-![img_18.png](img_18.png)
+![image](https://user-images.githubusercontent.com/79847020/168231228-b2cd717e-c3c4-4647-8a02-cffa5b15226b.png)
 
 Commit History에 Rebase And Merge를 했으므로 setting과 feat이 그대로 Main Branch에 쌓여지게 된 것을 확인할 수 있습니다.
 
-![img_19.png](img_19.png)
+![image](https://user-images.githubusercontent.com/79847020/168231269-99113737-bd3a-43fc-b420-eac3f84633c4.png)
+
+History를 보면 Commit들이 반영되어 있습니다.
+
+![image](https://user-images.githubusercontent.com/79847020/168231527-5cbd84cd-3f6c-48ba-a3f9-cecf775189ae.png)
+
 
 그 다음 'feature/1' 브랜치는 완료했으므로 main브랜치로 돌아갑니다. 
 
@@ -517,6 +488,7 @@ PS C:\study\98.WORK\string-handler> git checkout main
 Switched to branch 'main'
 Your branch is up to date with 'origin/main'.
 ```
+
 Git pull 명령을 실행합니다.
 ```markdown
 PS C:\study\98.WORK\string-handler> git pull
@@ -585,7 +557,7 @@ public interface Function<T, R> {
 
 ```java
 @RequiredArgsConstructor
-public enum str {
+public enum ExposureType {
    REMOVE_HTML(str -> str.replaceAll("<[^>]*>", "")), 
    ALL_TEXT(str -> str);
 
@@ -664,6 +636,7 @@ public class ParseService {
 ```
 여기까지 하나의 Issue가 끝났죠. 
 
+git status
 ```markdown
 PS C:\study\98.WORK\string-handler> git status
 On branch feature/2
@@ -693,24 +666,29 @@ PS C:\study\98.WORK\string-handler> git commit -m "feat:노출 유형 추가"
 
 git push
 ```markdown
-PS C:\study\98.WORK\string-handler> git push origin feature/2
+PS C:\Study\String-Handler> git push --set-upstream origin feature/2
+warning: redirecting to https://github.com/steadyin/string-handler/
 Enumerating objects: 34, done.
 Counting objects: 100% (34/34), done.
 Delta compression using up to 8 threads
 Compressing objects: 100% (11/11), done.
-Writing objects: 100% (20/20), 2.13 KiB | 1.06 MiB/s, done.
+Writing objects: 100% (20/20), 2.11 KiB | 1.05 MiB/s, done.
 Total 20 (delta 3), reused 0 (delta 0), pack-reused 0
 remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
-remote:
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/steadyin/String-Handler.git
+remote: 
 remote: Create a pull request for 'feature/2' on GitHub by visiting:
-remote:      https://github.com/steadyin/string-handler/pull/new/feature/2
+remote:      https://github.com/steadyin/String-Handler/pull/new/feature/2
 remote:
-To https://github.com/steadyin/string-handler.git
+To http://github.com/steadyin/string-handler
  * [new branch]      feature/2 -> feature/2
+Branch 'feature/2' set up to track remote branch 'feature/2' from 'origin'.
+
 ```
 
 Create PullRequest / Linking Issue / Rebase and Merge
-![img_20.png](img_20.png)
+![image](https://user-images.githubusercontent.com/79847020/168232730-dd2bd0ca-b388-4897-a21e-a2e107d63db4.png)
 
 git status
 ```markdown
