@@ -352,26 +352,23 @@ class UrlConnectorTest  {
 완성 된 테스트는 다음과 같다.
 ```java
 class UrlConnectorTest {
-   private final UrlConnector urlConnector = new UrlConnector();
+    private final UrlConnector urlConnector = new UrlConnector();
+
+    @DisplayName("url입력시 html을 가져올 수 있다.")
+    @ParameterizedTest
+    @CsvSource({"https://www.naver.com, <title>NAVER</title>", "https://www.google.com, <title>Google</title>"})
+    void urlSuccessTest(final String url, final String title) {
+        final String result = urlConnector.getHtml(url);
+
+        assertThat(result.contains(title)).isTrue();
+    }
 
     @DisplayName("잘못된 url입력시 IllegalArgumentException이 발생한다.")
     @ParameterizedTest
     @CsvSource({"https://www.naver.fail", "https://www.fail.fail"})
     void urlFaildTest(final String url) {
-        assertThatThrownBy(() -> urlConnector.getHtml(url))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("접근할 수 없는 url입니다.")
-        ;
+        assertThatThrownBy(() -> urlConnector.getHtml(url)).isInstanceOf(IllegalArgumentException.class).hasMessage("접근할 수 없는 url입니다.");
     }
-
-   @DisplayName("url입력시 html을 가져올 수 있다.")
-   @ParameterizedTest
-   @CsvSource({"https://www.naver.com, <title>NAVER</title>", "https://www.google.com, <title>Google</title>"})
-   void urlSuccessTest(final String url, final String title) {
-      final String result = urlConnector.getHtml(url);
-
-      assertThat(result.contains(title)).isTrue();
-   }
 }
 ```
 
@@ -619,7 +616,7 @@ public enum ExposureType {
 이런식으로 작성해서 각 ENUM에 다른 기능을 넣어줄 수 있습니다. 테스트를 만들어보도록 하겠습니다.
 
 ```java
-class ExposeTypeTest {
+class ExposureTypeTest {
    @DisplayName("REMOVE_HTML 타입인 경우 태그를 삭제한다")
    @Test
    void removeHtml() {
@@ -1053,7 +1050,7 @@ public class ParseService {
 
 2가지 컴포넌트가 추가되었으므로 Github Issue를 다시 수정하겠습니다.
 
-![img_23.png](img_23.png)
+![image](https://user-images.githubusercontent.com/79847020/168524793-6d69889f-5900-4bdf-85bb-749fbaeff7e4.png)
 
 git status
 ```
@@ -1148,7 +1145,7 @@ PS C:\study\98.WORK\string-handler> git push origin feature/4
 ```
 
 PullRequest & Rebase And Merge
-![img_24.png](img_24.png)
+![image](https://user-images.githubusercontent.com/79847020/168525029-1c7a487c-cd74-4ea7-8d3e-0b1f5692cbf1.png)
 
 feature/4 브랜치에서 작업한 Commit2개 'feat;Sorter 추가', 'feat:Arranger 추가'가 main 브랜치에 잘 추가된 것을 확인할 수 있다.
 
