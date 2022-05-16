@@ -226,7 +226,7 @@
   여기까지해서 커밋을 해보겠습니다. 
   
   
-
+ 
 ```markdown
 PS C:\study\98.WORK\string-handler> git status
 On branch feature/1
@@ -1183,7 +1183,9 @@ Fast-forward
 
 요구사항을 보고 추가로 Issue를 등록하겠습니다. 
 
-![img_25.png](img_25.png)
+![image](https://user-images.githubusercontent.com/79847020/168538959-25396e4e-c724-4ae3-9ec1-56e1e924ae11.png)
+
+Pull Request도 트래킹번호를 가지고 있기 때문에 9번부터 번호가 매겨집니다.
 
 git checkout -b feature/9
 ```java
@@ -1197,11 +1199,14 @@ Interleaver
 ```java
 @Component
 public class Interleaver {
+
+    public static final String DELIMITER = "";
+
     public String interleave(final String str1, final String str2) {
         final StringBuilder sb = new StringBuilder();
 
-        final Iterator<String> iterator1 = Arrays.stream(str1.split("")).iterator();
-        final Iterator<String> iterator2 = Arrays.stream(str2.split("")).iterator();
+        final Iterator<String> iterator1 = Arrays.stream(str1.split(DELIMITER)).iterator();
+        final Iterator<String> iterator2 = Arrays.stream(str2.split(DELIMITER)).iterator();
 
         while (iterator1.hasNext() || iterator2.hasNext()) {
             if (iterator1.hasNext()) {
@@ -1267,16 +1272,67 @@ final String interleaveText = interleaver.interleave(rearrange.getSortedEnglish(
 ```java
 final String interleaveText = interleaver.interleave(rearrange);
 ```
-Iterleaver 클래스에 다음 메소드를 오버로딩합니다.
+
+Interleaver에 interleave(Arranger rearrange) 메소드를 추가해봅시다. 내부에서 interleaver.interleave(rearrange.getSortedEnglish(), rearrange.getSortedNumber()); 를 호출하면 됩니다.
+
+ParseService에서 rearrange를 다음과 같이 호출하고.
 ```java
+@Service
+@RequiredArgsConstructor
+public class ParseService {
+
+    private final UrlConnector urlConnector;
+
+    private final Arranger arranger;
+
+    private final Interleaver interleaver;
+
+    public ParseResponse parse(ParseRequest request) {
+        final String html = urlConnector.getHtml(request.getUrl());
+        final String exposedHtml = request.getExposureType().getExposedHtml(html);
+        final Arranger rearrange = arranger.rearrange(exposedHtml);
+        final String interleaveText = interleaver.interleave(rearrange);
+
+        return null;
+    }
+}
+```
+
+Iterleaver 클래스를 다음과 같이 작성할 수 있습니다.
+```java
+@Component
+public class Interleaver {
+
+    public static final String DELIMITER = "";
+
+    String interleave(final String str1, final String str2) {
+        final StringBuilder sb = new StringBuilder();
+
+        final Iterator<String> iterator1 = Arrays.stream(str1.split(DELIMITER)).iterator();
+        final Iterator<String> iterator2 = Arrays.stream(str2.split(DELIMITER)).iterator();
+
+        while (iterator1.hasNext() || iterator2.hasNext()) {
+            if (iterator1.hasNext()) {
+                sb.append(iterator1.next());
+            }
+            if (iterator2.hasNext()) {
+                sb.append(iterator2.next());
+            }
+        }
+
+        return sb.toString();
+    }
+
     public String interleave(final Arranger rearrange) {
         return interleave(rearrange.getSortedEnglish(), rearrange.getSortedNumber());
     }
+}
 ```
 
-interleave(final String str1, final String str2) 메서드는 외부에서 사용하지 않고 오직 테스트에서만 사용하게 되는데 같은 패키지내에서만 사용할 때는 default 접근제어자로 변경하는 것도 하나의 방법입니다.
+interleave(final String str1, final String str2) 메서드는 외부에서 사용하지 않고 오직 내부에서, 테스트에서만 사용하게 되는데 같은 패키지내에서만 사용할 때는 default 접근제어자로 변경하는 것도 하나의 방법입니다. 테스트는 같은 패키지에서 작성됩니다.  
 
-그렇게하면 외부에서 호출할 때는 반드시 Rearrange 객체를 파라미터로 호출하는 것을 강요할 수 있겠죠.
+테스트 또는 내부에서 호출하는 메서드는 Default 접근제어자로 호출할 수 있고 
+외부에서 호출할 때는 반드시 Rearrange 객체를 파라미터로 호출하는 것을 강요할 수 있겠죠.
 
 git status / git add . / git commit -m "feat:Interleaver 추가" / git push
 ```
@@ -1315,6 +1371,8 @@ To https://github.com/steadyin/string-handler.git
  * [new branch]      feature/9 -> feature/9
 ```
 
+![image](https://user-images.githubusercontent.com/79847020/168543051-664cf342-2955-4e3b-8378-29a343534a95.png)
+
 git checkout main / git pull
 ```
 PS C:\study\98.WORK\string-handler> git checkout main
@@ -1344,10 +1402,7 @@ git checkout
 ```
 PS C:\study\98.WORK\string-handler> git checkout -b feature/10
 Switched to a new branch 'feature/10'
-PS C:\study\98.WORK\string-handler>
-PS C:\study\98.WORK\string-handler>
-PS C:\study\98.WORK\string-handler>
-```
+``` 
 
 출력 묶음 단위는 일정 단위 기준으로 문자열을 몫과 나머지로 나누는 기능입니다. 에를 들어 a0b1c2이 있을 때 단위는 최대 6까지 가능하고 3이면 몫은 a0b1c2 나머지는 없음 4이면 a0b1 나머지는 c2입니다.   
 
@@ -1434,7 +1489,7 @@ class OutputUnitTest {
 이제 ParseResponse으로 응답을 하면 되는데 다른 Issue로 등록되어 있으므로 여기까지만 작성해서 커밋하겠습니다.
 
 git add .
-git commit -m "feat;추력 묶음 단위 추가"
+git commit -m "feat:OutputUnit 추가"
 git push origin feature/10
 git checkout main
 git pull
@@ -1492,6 +1547,7 @@ Swagger 적용해서 눈으로 보기 편하게 한다음에 API를 확인하도
 git checkout -b feature/12
 
 스프링 2.6.4 랑 스웨거3.0이랑 안맞는 문제가 있습니다. 검색해보면 해결방법이 간단하게 있습니다. springdoc-openapi 공식문서를 살펴보면 Swagger에 대한 내용이 나와있습니다.
+원래는 Swagger 라이브러리를 추가하면 Config 설정파일을 추가해야했는데 이제는 springdoc-openapi 라이브러리를 추가하기마 하면 정상동작합니다. 
 
 springdoc-openapi 라이브러리를 추가합니다.
 
@@ -1502,9 +1558,11 @@ implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
 
 Swagger 3.0부터 URL이 변경되었는데 http://localhost:8080/swagger-ui/index.html
 
-![img_26.png](img_26.png)
+![image](https://user-images.githubusercontent.com/79847020/168549613-9ede5ffe-d154-4ba7-9b75-74b4a7fa3ddf.png)
 
-Controller 혹은 Request Response에다가 설명을 추가할 수 있습니다. Swagger에 대한 애노테이션을 사용할 있습니다..
+Controller 혹은 Request Response에다가 설명을 추가할 수 있습니다. 그리고 실제로 Try 해볼수도 있습니다.
+
+Swagger에 대한 애노테이션을 사용할 있습니다..
 
 * @Operation
   * summary : API 요약
@@ -1525,7 +1583,7 @@ public class ParseController {
 }
 ``` 
 
-![img_27.png](img_27.png)
+![image](https://user-images.githubusercontent.com/79847020/168549970-5080f3f2-c645-40c5-bf30-ea2326ff8090.png)
 
 다음과 같이 Request의 스키마를 작성할 수 있습니다.
 ```java
@@ -1539,16 +1597,17 @@ public class ParseRequest {
     @Schema(description = "노출유형", defaultValue = "REMOVE_HTML")
     private final ExposureType exposureType;
 
-    @Schema(description = "unitCount", defaultValue = "10")
+    @Schema(description = "출력묶음단위", defaultValue = "10")
     private final Integer unitCount;
 }
 ```
+![image](https://user-images.githubusercontent.com/79847020/168550556-1ec2ab04-987f-49b3-b425-e92eaa0bb652.png)
 
-![img_29.png](img_29.png)
+![image](https://user-images.githubusercontent.com/79847020/168550634-f08854f7-1d77-4d2f-8e56-cf47b3d7d820.png)
 
-![img_30.png](img_30.png)
+Response 항목도 출력되도록 Response에 @Getter를 적용하겠습니다. @Getter가 적용되지 않으면 멤버 필드가 스키마에 표시되지 않네요
 
-Response 항목도 출력되도록 Response에 @Getter를 적용하겠습니다. @Getter가 적용되지 않으면 멤버 필드가 스키마에 표시되지 않네요.
+Response는 몫과 나머지가 변수명에서 명확하게 명시되어있으니 추가적으로 작성하지 않아도 될것같네요.
 
 git status
 git commit -m "feat:Swagger 설정"
@@ -1559,19 +1618,15 @@ git pull
 
 Swagger Test
 
-![img_32.png](img_32.png)
+![image](https://user-images.githubusercontent.com/79847020/168553944-64afe31f-3845-4580-84c4-ef4801a7d784.png)
 
-![img_33.png](img_33.png)
+![image](https://user-images.githubusercontent.com/79847020/168553986-217b262a-1094-4017-bb77-e5f81e54d599.png)
 
 정상 동작한다. 
 
-![img_34.png](img_34.png)
-
-![img_35.png](img_35.png)
-
 그런데 unitCount를 0으로 입력하면 ArithmeticException가 발생하는 것을 확인할 수 있다. 
 
-![img_36.png](img_36.png)
+![image](https://user-images.githubusercontent.com/79847020/168554071-49a1b7da-2f6b-49bd-95b6-d59f06bb94b4.png)
 
 이제 예외 핸들러를 작성해보자.
 
