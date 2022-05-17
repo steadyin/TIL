@@ -1624,19 +1624,23 @@ Swagger Test
 
 정상 동작한다. 
 
+## Global Exception Handler
+
+git status
+git checkout feature/13
+
 그런데 unitCount를 0으로 입력하면 ArithmeticException가 발생하는 것을 확인할 수 있다. 
 
 ![image](https://user-images.githubusercontent.com/79847020/168554071-49a1b7da-2f6b-49bd-95b6-d59f06bb94b4.png)
 
 이제 예외 핸들러를 작성해보자.
 
-## Global Exception Handler 추가
-
 다음과 같이 @RestControllerAdvice를 통해 글로벌익센션핸들러를 작성할 수 있습니다.  
 
 ```java
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(ArithmeticException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public void methodArgumentNotValidException(final ArithmeticException e) {
@@ -1648,14 +1652,30 @@ public class GlobalExceptionHandler {
 실행해서 다시 ArithmeticException를 발생시키면 이제 로그창에 더이상 예외 관련 로그는 보이지 않고 메시지만 출력됩니다. 그리고 Response도 차이가 있습니다.
 
 전
-![img_38.png](img_38.png)
-![img_39.png](img_39.png)
+![image](https://user-images.githubusercontent.com/79847020/168707507-15acd38a-4117-4b0b-86a4-fc326d42d139.png)
 
 후
-![img_37.png](img_37.png)
-![img_40.png](img_40.png)
+![image](https://user-images.githubusercontent.com/79847020/168707568-cf7e9301-84ee-48a2-ba61-7c80c1acb95c.png)
 
 그런데 ArithmeticException를 처리하는 것보다는 맨 처음 세팅할 때 spring-boot-starter-validation을 추가했으므로 Controller에서 @Valid 애노테이션을 사용해서 검증을 추가할 수 있습니다. 그래서 @Valid에 대한 에러메시지를 출력해주는 것이 더 깔끔할것 같습니다. 0으로 나눌 때 발생하는 예외보다는 Request 정의 할 때 해당 되는 패턴으로 입력되지 않았을 때 메시지를 직접 정의줄 수 있으므로 그 에러에 대한 익셉션을 처리하는게 조금 더 나은 방법일 것 같습니다.
+
+```java
+@RequiredArgsConstructor
+@Getter
+public class ParseRequest {
+
+    @Schema(description = "url", defaultValue = "https://www.naver.com")
+    @Pattern(regexp ="(http)s?:\\/\\/(www\\.)?[a-zA-z0-9@:%._\\+~#=]+\\.[a-zA-z0-9@:%._\\/+-~#=?]+", message = "url 형식이 아닙니다.")
+    private final String url;
+
+    @Schema(description = "노출유형", defaultValue = "REMOVE_HTML")
+    private final ExposureType exposureType;
+
+    @Schema(description = "출력묶음단위", defaultValue = "10")
+    @Min(value = 1, message = "1이상의 수를 입력해주세요.")
+    private final Integer unitCount;
+}
+```
 
 @Pattern(regexp ="regexp", message = "meesage")
 * @Pattern을 사용해서 url 필드에 정규식을 이용해서 해당 정규식이 아니면 에러 메시지를 정의할 수 있습니다. 
@@ -1675,11 +1695,11 @@ public class GlobalExceptionHandler {
         System.out.println(e.getMessage());
 //        return ResponseEntity.badRequest().body(new ResponseError(e.get))
     }
-}
+}  
 ```
-![img_41.png](img_41.png)
+![image](https://user-images.githubusercontent.com/79847020/168708339-a8c1cfd3-188b-4704-a096-12ae3c1c24ce.png)
 
-정의한 메시지가 포함되어 있는 것을 확인할 수 있습니다. 그래서 잘 필터링 해서 응답하면 프론트 담당자가 어떤 작업을 하다가 에러가 났을 때 왜 잘못됬는지, 뭐가 잘못됬는지 파악하기 수월합니다.
+정의한 메시지가 포함되어 있는 것을 확인할 수 있습니다. 그래서 잘 필터링 해서 응답하면 프론트 담당자가 어떤 작업을 하다가 에러가 났을 때 왜 잘못됬는지, 뭐가 잘못됬는지 파악하기 수월합니다. ErrorResponse을 생성합니다.
 
 ```java
 @RestControllerAdvice
@@ -1693,11 +1713,13 @@ public class GlobalExceptionHandler {
 }
 ```
 
-![img_42.png](img_42.png)
+e.getBindingResult().getAllErrors().get(0).getDefaultMessage()는 로그에 찍힌 `default message [1이상의 수를 입력해주세요.]`를 찾기 위한 코드입니다. 여러가지 에러가 떨어질 수 있는데 리스트 중 한개를 출력하는 코드입니다. 이거는 회사의 팀의 룰에 따르면 됩니다. 에러코드도 마찬가지로. 
+ 
+![image](https://user-images.githubusercontent.com/79847020/168709491-8c46b23f-761d-4e2f-89c3-264089537c56.png)
 
 깔끔하게 에러코드와 에러메시지가 응답되는 것을 확인할 수 있습니다.
 
-사실 서버에서 로그를 모아놓고 어떤 에러가 발생했을 때 알람이 되도록 운영을 하는데 Lombok을 사용한다는 가정하에 다음과 같이 로그를 사용할 수 있습니다.
+사실 서버에서 로그를 모아놓고 어떤 에러가 발생했을 때 알람이 되도록 운영을 하는데 Lombok을 사용한다는 가정하에 로그를 사용할 수 있습니다.
 
 ## 로그
 
@@ -1716,18 +1738,50 @@ public class GlobalExceptionHandler {
     }
 }
 ```
-
 만약 접속되지 않는 URL을 입력하면 어떻게 될까요 ? 
 
-![img_43.png](img_43.png)
+![image](https://user-images.githubusercontent.com/79847020/168710537-40eb4b93-006c-4104-ae7f-1a5856bd92fc.png)
+
+![image](https://user-images.githubusercontent.com/79847020/168710571-f3460e7b-0d52-407e-81c3-30db38bd1ef3.png)
 
 IllegalArgumentException이 발생합니다. 해당 예외를 처리하는 익셉션 핸들러는 존재하지 않습니다. 그래서 GlobalExceptionHandler에서 IllegalArgumentException을 처리하려고 고려하니 IllegalArgumentException을이 너무 범용적인 예외라는 문제가 있습니다. 
 
-그래서 IllegalArgumentException을 커스텀 예외로 전환해보도록 하겠습니다.  
-
-UrlConnectionException로 정의하겠습니다. 근데 속하는 것은 IllegalArgumentException에 속해야겠죠. IllegalArgumentException를 상속합니다. 상위 Exception의 생성자를 타도록 작성합니다.   
+그래서 IllegalArgumentException을 커스텀 예외로 전환해보도록 하겠습니다. UrlConnectionException로 정의하겠습니다. 속하는 것은 IllegalArgumentException에 속해야겠죠. IllegalArgumentException를 상속합니다. 상위 Exception의 생성자를 타도록 작성합니다.
 
 ```java
+public class UrlConnectionException extends IllegalArgumentException {
+    public UrlConnectionException(final String s) {
+        super(s);
+    }
+}
+```
+```java
+@Component
+public class UrlConnector {
+    public String getHtml(final String url) {
+        try {
+            return Jsoup.connect(url).get().html();
+        } catch (IOException e) {
+            throw new UrlConnectionException("접근할 수 없는 url입니다.");
+        }
+    }
+}
+```
+
+Exception 종류가 달라서 Message를 e.getBindingResult().getAllErrors().get(0).getDefaultMessage()가 아니라 e.getMessage()로 가져올 수 있습니다.
+
+```java
+@RestControllerAdvice
+@Slf4j
+public class GlobalExceptionHandler {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponse> methodArgumentNotValidException(final MethodArgumentNotValidException e) {
+        log.error(e.getMessage());
+        return ResponseEntity.badRequest()
+                .body(new ErrorResponse(e.getBindingResult().getAllErrors().get(0).getDefaultMessage(), "E001"));
+    }
+
     @ExceptionHandler(UrlConnectionException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorResponse> urlConnectionException(final UrlConnectionException e) {
@@ -1735,11 +1789,25 @@ UrlConnectionException로 정의하겠습니다. 근데 속하는 것은 Illegal
         return ResponseEntity.badRequest()
                 .body(new ErrorResponse(e.getMessage(), "E002"));
     }
+}
+```    
+![image](https://user-images.githubusercontent.com/79847020/168712108-757e4c1c-389f-432a-aefe-efca2f565a82.png)
+
+![image](https://user-images.githubusercontent.com/79847020/168712142-023e9a6e-26fc-476b-8218-22055d617a96.png)
+
+### ExposureType도 다른게 들어 올수도 있겠죠. 
+
+다음과 같이 요청을 하면
+
+```
+{
+  "url": "https://www.naver.com",
+  "exposureType": "REMOVE333_HTML",
+  "unitCount": 10
+}
 ```
 
-ExposureType도 다른게 들어 올수도 있겠죠. 
-
-![img_45.png](img_45.png)
+![image](https://user-images.githubusercontent.com/79847020/168713292-49f2134d-6481-4694-b469-786f3c581c53.png)
 
 HttpMessageNotReadableException이 발생합니다. 
 
@@ -1753,11 +1821,20 @@ HttpMessageNotReadableException이 발생합니다.
     }
 ```
 
-![img_46.png](img_46.png)
+```
+git add .
+git commit -m "GlobalExceptionHandler 추가"
+git push --set-upstream origin feature/13
+git checkout main
+git pull
+```
 
 # README
 
+README.md는 본인이 상대방이 이거는 알아주었음 좋겠다 싶은 것을 적으면 됩니다.
 README는 오픈소스라던가, 라이브러리라던가 많은 정리해놓은 글들이 많다. 참고해서 작성하자.
+
+여기서 실행 방법, Swagger, 개발환경, 요구사항을 기재해놓았습니다. 추가로 어필하고 싶은게 있다면 고려사항 같은 것을 추가할 수 있습니다.
 
 ```
 # string-handler
@@ -1818,7 +1895,7 @@ README.md가 처음 보여지는 화면인데 열심히 성실히 작성했다 �
 
 ```
 
-[개발가락/4년차] [오후 9:01] 아까 질문나왔던 static vs component를 좀 찾아봤습니다.
+아까 질문나왔던 static vs component를 좀 찾아봤습니다.
 
 우선 static vs singleton (@Component 어노테이션의 기본 빈 스코프)
 https://www.baeldung.com/java-static-class-vs-singleton
@@ -1834,13 +1911,11 @@ https://www.baeldung.com/java-static-class-vs-singleton
 - 입력 매개변수에서만 작동하고 내부 상태를 수정하지 않는 많은 정적 유틸리티 메소드를 저장하기만 하면 됩니다.
 - 런타임 다형성 또는 객체 지향 솔루션이 필요하지 않습니다.
 
-—
+
 @component는 스프링 빈으로 등록해주는 어노테이션인데, 기본 스코프가 싱글톤이라 자주 쓰입니다.
 DI를 할때 객체 생성을 직접하지 않고도 빈을 주입받을 수 있어서 작업이 편하다는 장점이 있어요.
 
 
-[개발가락/4년차] [오후 9:05] https://stackoverflow.com/questions/7026507/why-are-static-variables-considered-evil
+https://stackoverflow.com/questions/7026507/why-are-static-variables-considered-evil
 
 요 논의도 참고하기 좋은 것 같습니다!
-
-https://stackoverflow.com/questions/7026507/why-are-static-variables-considered-evil
