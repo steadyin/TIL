@@ -123,25 +123,39 @@ p {
     3. filter 속성이 none임. (Firefox에선 will-change가 filter일 때도 적용)
     4. contain 속성이 paint임.
 
-
 첫번째 규칙은 static, relative, sticky 중 하나이면 containing block은 inline이 될 수 없다고 외우시면 됩니다. 네번째 규칙은 ii, iii, iv보다는 i규칙이 중요합니다. \<transform\>이 빈번이 사용되기 때문에 2번 규칙만 외우고 있다가 absolute와 transform을 같이 사용하는 경우 혼란이 올 수 있습니다. 이 문서를 항상 즐겨찾기 해두고 틈틈히 보는 것을 추천합니다. 
 
- 
+\<body\>가 아니라 \<html\>이 루트 요소입니다. 강의 오류 !!
+
+하나 생각하셔야 될게 \<body\>에 대부분의 브라우저가 기본적으로 margin이 적용되어 있습니다.
+
+![image](https://user-images.githubusercontent.com/79847020/177176723-a29f53b5-fd7f-4e95-bba4-88970084503e.png)
+
+그래서 약간의 공간이 있습니다. 
+
+![image](https://user-images.githubusercontent.com/79847020/177176799-fc92c013-bc58-43c7-a92a-a012aea98081.png)
+
+이런 것들을 왠만하면 없애주고 시작합니다. body 뿐만 아니라 html도 다음과 같이 마찬가지로 적용합니다.
+
+```CSS
+html, body {
+    margin: 0;
+    padding: 0;
+}
+```
+
+돋보기버튼을 이전에 margin을 사용해서 가운데 정렬을 했는데 positiong을 사용해서 정렬할수도 있습니다. 가운데 정렬하는 방법을 여러가지가 있는데 한 가지를 제대로 알아두시고 활용하시면 됩니다.
+
+https://www.zerocho.com/category/CSS/post/5881edef636a7f0b8e8507d8
+
+flex를 사용해도 되고, 단 익스플로러에서는 동작하지 않습니다.
+```
+@css
+display: flex;
+align-items: center;
+```
+
+그 외 display: table-cell, display: table를 transform을 이용하는 방법 여러가지가 있습니다. 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
