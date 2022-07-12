@@ -42,7 +42,6 @@
 ```
 
 ```HTML
-
 ...
 <header>
     <div class="center-align">
@@ -73,6 +72,36 @@
     </div>
 </nav>
 ```
+
+가운데 정렬이 되었습니다.
+
+![image](https://user-images.githubusercontent.com/79847020/178507175-2166541f-99b2-470e-a97c-be427dc15550.png)
+
+UL태그에도 margin과 왼쪽 padding이 적용되어 있습니다. 
+
+![image](https://user-images.githubusercontent.com/79847020/178507579-14afac5d-37f7-4df5-8e7d-5e1b9b850e7b.png)
+
+그런데\<li\>가 한줄을 다 차지하고 있습니다. \<ul\>에 margin, padding을 0을 주고 list-style로 항목 모양을 지정할 수 있습니다.
+
+```
+margin: 0;
+padding: 0;
+list-style: none;
+```
+
+list-style은 none을 통해서 없애줄 수도 있고 disc, square 등과 같이 모양을 지정해줄수도 있습니다.
+
+![image](https://user-images.githubusercontent.com/79847020/178518207-da758f52-732f-4292-9cc1-8bcb0c98092e.png)
+
+그리고 \<li\>를 display: inline-block으로 지정해줍니다. 
+
+
+
+
+
+
+
+
 
 
 
