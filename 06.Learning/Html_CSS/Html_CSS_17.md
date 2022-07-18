@@ -199,38 +199,62 @@ CSS를 보시면 공통적인 것이 있는 것을 볼 수 있습니다.
 3번째 child를 작성합니다.
 
 ```CSS
-nav li:nth-child(3) span:first-child {
+nav li:first-child span:first-child {
+    width: 25px;
+    /*height: 16px;*/
+    background-position: 0 -285px;
+    /*background-image: url(./sp_nav.png);*/
+    /*background-repeat: no-repeat;*/
+    /*display: inline-block;*/
+}
+
+nav li:nth-child(2) span:first-child {
     width: 27px;
-    height: 16px;
+    /*height: 16px;*/
     background-position: -279px -52px;
-    background-image: url(./sp_nav.png);
-    background-repeat: no-repeat;
-    display: inline-block;
+    /*background-image: url(./sp_nav.png);*/
+    /*background-repeat: no-repeat;*/
+    /*display: inline-block;*/
+}
+
+nav li:nth-child(3) span:first-child {
+    width: 40px;
+    /*height: 16px;*/
+    background-position: -100px -182px;
+    /*background-image: url(./sp_nav.png);*/
+    /*background-repeat: no-repeat;*/
+    /*display: inline-block;*/
 }
 ```
 
+![image](https://user-images.githubusercontent.com/79847020/179521389-187f0d55-2627-42ba-9e4e-25190839f6d8.png)
 
 
+공통적인 것을 뽑아봅시다. 셋의 공통점은 nav li span 임을 인식합니다.
 
+```CSS
+nav li {
+    display: inline-block;
+}
 
+nav li span {
+    background-image: url(./sp_nav.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 16px;
+}
+```
 
+![image](https://user-images.githubusercontent.com/79847020/179521376-a0f14725-b232-46bf-bf1c-b85da55e188f.png)
 
+이어서 작성을 하면 다음과 같이 메뉴를 완성시킬 수 있습니다.
 
+![image](https://user-images.githubusercontent.com/79847020/179523008-553e1644-989b-4ed9-9634-3bac9ec125be.png)
 
+사실 이 예제는 nth-child를 알려드리기 위해서 억지로 끼워넣은 것이고 실무에서는 사용하지 않는 것을 권장드립니다.
 
+지금 당장 처음 배우시는 분들은 구현하기 급급해서 nth-child를 사용할수도 있는데 유지보수적인 측면에서 배우 안좋습니다.
 
- 
+왜냐하면 순서가 달라질수도 있고 정확히 무엇을 위한 CSS인지 인식하기도 힘들기 때문입니다. 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+그래서 nth-child를 사용하기보다는 클래스 이름을 하나씩 줘서 매칭하는 것이 더 낫다고 생각됩니다.
