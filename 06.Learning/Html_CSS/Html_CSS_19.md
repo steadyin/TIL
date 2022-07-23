@@ -31,4 +31,21 @@ Block Format Context는 부모 입장에서 자식이 누구 까지를 내 블�
 * column-span (en-US)이 all인 경우. 해당하는 요소가 다열 컨테이너 안에 위치하지 않아도 항상 새로운 블록 서식 맥락을 생성해야 합니다. (명세 변경, Chrome 버그)
 ```
 
+그리고 overflow가 visible이 아닌 블록 요소를 잘 기억해두셔야 합니다. 아직 overflow를 배우지는 않았지만 블록 서식 문맥을 만드는 방법 중에 인라인 블록과 float과 overflow를 기억해두셔야 합니다.
+
+* 인라인 블록(display가 inline-block).
+* 플로팅 요소(float이 none이 아님).
+* overflow가 visible이 아닌 블록 요소.
+
+하나 더 기억하실만한게 
+
+* 절대 위치를 지정한 요소(position이 absolute 또는 fixed)
+
+이것들이 중요하니깐 기억하시면 좋을 것 같습니다. 
+
+
+
+
+
+
 
