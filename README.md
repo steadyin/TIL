@@ -1,8 +1,8 @@
 ## ToDo
   * StringHandler(완료)
-  * HTML/CSS(진행중)
+  * HTML/CSS (진행중)
   * HTTPS/SSL
-  * Java8 정리
+  * Java8 정리 (진행중)
   * JavaScript
   * Spring Security
   * Spring DB
