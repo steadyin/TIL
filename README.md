@@ -1,14 +1,13 @@
 ## ToDo
-  * HTTPS/SSL
-  * Java8 정리
   * StringHandler 정리
   * HTML/CSS
+  * HTTPS/SSL
+  * Java8 정리
   * JavaScript
   * Spring Security
   * Spring DB
   * OAUTH
- 
-
+  
 ## Daily 
   - Programmer 문제
 
