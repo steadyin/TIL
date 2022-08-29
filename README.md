@@ -1,12 +1,13 @@
 ## ToDo
-  * StringHandler 정리
-  * HTML/CSS
+  * StringHandler(완료)
+  * HTML/CSS(진행중)
   * HTTPS/SSL
   * Java8 정리
   * JavaScript
   * Spring Security
   * Spring DB
   * OAUTH
+  * 개발자모드
   
 ## Daily 
   - Programmer 문제
