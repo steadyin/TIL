@@ -65,3 +65,7 @@
 * [토비 스프링 학습](06.Learning/TobySpring)
 * [GIT](06.Learning/GIT)
 * [스프링 시큐리티](06.Learning/SpringSecurity)
+
+## 
+
+Git Commit Convention : https://meetup.toast.com/posts/106
