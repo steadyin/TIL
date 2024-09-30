@@ -2,6 +2,7 @@
 * JavaScirpt / Node.js / React 강의 완강 - 수강중
 * RestFul Web SErvices 개발 > 수강중
 * MySQL > 수강중
+* 온라인스토어 
 
 ## 후순위
 * IntelliJ
