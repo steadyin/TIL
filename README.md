@@ -1,12 +1,10 @@
 ## ToDo
 * JavaScirpt / Node.js / React 강의 완강 - 수강중
-* MySQL 
-* Spring DB
-
-
-* MySQL
+* RestFul Web SErvices 개발 > 수강중
+* MySQL > 수강중
 
 ## 후순위
+* IntelliJ
 * 정규식
 * OAUTH
 * HTTPS/SSL
@@ -15,6 +13,8 @@
 * 개발자모드
 * 제로초 HTML/CSS 한번 복습
 * Spring Security
+* RestFul Web SErvices 개발 > Spring Cloude 마이크로서비스 > CI/CD > Docker + Kubernets -> Docker
+* Spring DB
   
 ## Daily 
   - Programmer 문제
