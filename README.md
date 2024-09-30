@@ -1,16 +1,20 @@
 ## ToDo
-  * StringHandler(완료)
-  * 제로초 HTML/CSS (완료, 1회 복습 예정)
-  * HTML/CSS/JS 책 (진행중)
-  * Java8 정리 (진행중)
-  * 네트워크 (진행중)
-  * 개발자모드
-  * JavaScript
-  * HTTPS/SSL
-  * Spring Security
-  * Spring DB
-  * OAUTH
-  * 정규식
+* JavaScirpt / Node.js / React 강의 완강 - 수강중
+* MySQL 
+* Spring DB
+
+
+* MySQL
+
+## 후순위
+* 정규식
+* OAUTH
+* HTTPS/SSL
+* Java8 정리 (진행중)
+* 네트워크 (진행중)
+* 개발자모드
+* 제로초 HTML/CSS 한번 복습
+* Spring Security
   
 ## Daily 
   - Programmer 문제
