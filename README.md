@@ -37,7 +37,7 @@
 ## ToDo (2024)
 * JavaScirpt / Node.js / React 강의 > TypeScript(10시간31분) > Next.JS > 프론트 커리큘럼
 * RestFul Web SErvices 개발 > Spring Cloud로 개발하는 마이크로서비스 애플리케이션 (MSA) > Jenkins를 이용한 CI?CD 파이프라인 구축 > 클라우드 커리큘럼 
-* MySQL > 수강중 > 친절한 SQL 튜닝
+* MySQL > 수강중 > 친절한 SQL 튜닝 > 최종 SQLP
 * AWS > 강의
 * 온라인스토어 
 ---------------------------------------------------------------------------------------------
