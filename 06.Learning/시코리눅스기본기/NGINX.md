@@ -218,3 +218,11 @@ Nginx는 이 외에도 HSTS, CORS 처리, TCP/UDP 커넥션 부하 분산, 그�
 현업에서 일하는 개발자들이 모은 Nginx 설정 템플릿인데요. 일반적인 상황에서 이 템플릿을 이용하면 Nginx를  더욱 빠르게, 편하게, 강력하게 사용할 수 있어요. 물론 제대로 된 아키텍처를 구축하려고 한다면 템플릿 말고 Nginx를 실제로 튜닝해서 써야겠죠. 이상 발표 마치도록 할게요. 
 
 
+출처 :
+
+https://www.nginx.com 블로그
+http://www.kegel.com/c10k.html
+https://www.aosabook.org/en/nginx.html
+Apache HTTP Server 공식 홈페이지
+https://hackmag.com/devops/nginx-interview
+
